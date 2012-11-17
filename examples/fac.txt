@@ -1,0 +1,10 @@
+set &fac {
+	if (gt #1 1) {
+		mul #1 (fac (- #1 1)) &#2
+	} {
+		set &#2 1
+	}
+}
+
+fac 14 &res
+print res

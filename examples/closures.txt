@@ -1,0 +1,19 @@
+set &a {
+	export "x" &#1
+	set &#2 {
+		export "x" x
+		export "y" #1
+		
+		set &#2 {
+			set &#1 (* x y)
+		}
+	}
+}
+
+a 17.3 &f
+f 2 &g
+
+set &i 100
+
+g &res
+print res

@@ -1,0 +1,13 @@
+set &fib {
+	-- (Binet's formula)
+	/ (- (^ (/ (+ 1 (^ 5 0.5)) 2) #1) (^ (/ (- 1 (^ 5 0.5)) 2) #1)) (^ 5 0.5) &#2
+	tonum #2 &#2
+}
+
+set &n 26
+
+while &n {
+fib n &r
+print n "\t" &r
+- n 1 &n
+}

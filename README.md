@@ -239,7 +239,9 @@ One line consists of this scheme:
 #### Integer notation
 
 > NonzeroNumber = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
 > Number = "0" | NonzeroNumber;
+
 > Integer = "0" | ["-"], NonzeroNumber {Number};
 
 #### Float notation
@@ -296,6 +298,9 @@ it can be passed with the ampersand character _&_. Then, the specified variable 
 Because of Subexpressions, it is common policy to use the last function argument as reference if the
 function returns a value. This value is then written into the specified destination. Only functions
 that follow this syntax can be used with Subexpressions.
+
+Inside an user-defined function, function arguments can be accessed by using _#_ in front of the argument number,
+where _#1_ is the first argument, _#2_ the second, etc. The number of arguments is in _#n_.
 
 Building the interpreter
 ------------------------
