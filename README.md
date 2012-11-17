@@ -239,7 +239,9 @@ One line consists of this scheme:
 #### Integer notation
 
 > NonzeroNumber = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
 > Number = "0" | NonzeroNumber;
+
 > Integer = "0" | ["-"], NonzeroNumber {Number};
 
 #### Float notation
