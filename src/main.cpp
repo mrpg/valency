@@ -399,16 +399,20 @@ int main(int argc, char** argv) {
 
 	if (argc == 2) {
 		if (string(argv[1]) != "-i") {
-			ifstream fp;
-			fp.open(argv[1]);
+			ifstream fp(argv[1]);
 
 			if (!fp.good()) {
 				cerr << "Fatal error: File `" << argv[1] << "' cannot be read." << endl;
 				halt(156);
 			}
-			
-			parse(fp,lines);
+
+			stringstream buffer;
+
+			copy(istreambuf_iterator<char>(fp),istreambuf_iterator<char>(),ostreambuf_iterator<char>(buffer));
+
 			fp.close();
+			
+			parse(buffer,lines);
 		}
 		else {
 			interactive = true;
