@@ -346,6 +346,7 @@ _(no particular order)_
 
 * eliminating function call overhead
 * adding natural list notation
+* better error handling for builtin functions (see example mean.txt)
 * file handling
 * cleaning up source files
 * splitting code
@@ -355,8 +356,8 @@ Known bugs
 ----------
 
 * Windows newline problem (solution: don't use Windows)
-* Function calls are somewhat expensive
-* A few non-critical memory leaks
+* Function calls are somewhat expensive (solution: use more mathematical approaches)
+* A few non-critical memory leaks (solution: use less memory)
 
 Licensing
 ---------

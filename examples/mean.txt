@@ -1,0 +1,11 @@
+set &sum 0
+set &n 0
+set &cond (readstring &word)
+
+while &cond {
+	+ sum (tofloat word) &sum
+	+ n 1 &n
+	set &cond (readstring &word)
+}
+
+print "mean = " (/ sum n)
