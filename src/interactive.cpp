@@ -1,4 +1,4 @@
-/* Valency 1e-4
+/* Valency 1e-3
  * 2012, Max R. P. Grossmann
  *
  * This program is free software. It comes without any warranty, to
@@ -8,12 +8,12 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
 
 void interactive_mode() {
-	cout << "Welcome, this is Valency 1e-4 starting in interactive mode [pre-alpha]." << endl;
+	cout << "Welcome, this is Valency 1e-3 starting in interactive mode [pre-alpha]." << endl;
 	cout << "This program is free software. It comes without any warranty, to" << endl;
 	cout << "the extent permitted by applicable law. You can redistribute it" << endl;
 	cout << "and/or modify it under the terms of the Do What The Fuck You Want" << endl;
 	cout << "To Public License, Version 2, as published by Sam Hocevar." << endl;
-	cout << endl << "(c) Max R. P. Grossmann, 2012." << endl;
+	cout << endl << "Max R. P. Grossmann, 2012." << endl;
     cout << endl;
 
     string cmd;

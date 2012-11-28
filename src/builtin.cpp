@@ -1,4 +1,4 @@
-/* Valency 1e-4
+/* Valency 1e-3
  * 2012, Max R. P. Grossmann
  *
  * This program is free software. It comes without any warranty, to

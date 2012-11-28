@@ -1,4 +1,4 @@
-/* Valency 1e-4
+/* Valency 1e-3
  * 2012, Max R. P. Grossmann
  *
  * This program is free software. It comes without any warranty, to
@@ -191,21 +191,11 @@ inline bool isnum(const string& str) {
 }
 
 inline bool isfloat(const string& str) {
-	int i = 0, np = 0, ne = 0;
-
-	for (auto& ch: str) {
-		if (!(ch >= '0' && ch <= '9') && !(np == 0 && ch == '.') &&
-		    !(i == 0 && ch == '-') && !(ne == 0 && (ch == 'E' || ch == 'e'))) {
-			return false;
-		}
-		else if (ch == '.') {
-			np++;
-		}
-		else if (ch == 'E' || ch == 'e') {
-			ne++;
-			i = -1;
-		}
-		i++;
+	try {
+		stod(str);
+	}
+	catch (...) {
+		return false;
 	}
 
 	return true;
