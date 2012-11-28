@@ -290,11 +290,11 @@ shared_ptr<instr_t> getinstr(const string& str) {
 	else if (isnum(str)) {
 		r.reset(get(new int64_t(stoll(str)),XNUMT));
 	}
-	else if (isfloat(str)) {
-		r.reset(get(new double(stod(str)),XFLOATT));
-	}
 	else if (vars.top().find(str) != vars.top().end()) {
 		r = vars.top()[str]->copy();
+	}
+	else if (isfloat(str)) {
+		r.reset(get(new double(stod(str)),XFLOATT));
 	}
 	else {
 		cerr << "Fatal error: `" << str << "' is unknown." << endl;
