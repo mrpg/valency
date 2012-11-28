@@ -1,3 +1,5 @@
+#!/usr/bin/valency
+
 set &simpson {
 	-- simpson [a] [b] [iterations] [function] [&result]
 

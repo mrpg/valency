@@ -86,6 +86,11 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 			getline(stream,ci);
 			continue;
 		}
+		else if (ci[0] == '#') {
+			cl.clear();
+			getline(stream,ci);
+			continue;
+		}
 		
 		while (!stream.eof()) {
 			ch = stream.get();

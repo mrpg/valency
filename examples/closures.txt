@@ -1,3 +1,5 @@
+#!/usr/bin/valency
+
 set &a {
 	export "x" &#1
 	set &#2 {

@@ -1,3 +1,5 @@
+#!/usr/bin/valency
+
 set &sum 0
 set &n 0
 set &cond (readstring &word)

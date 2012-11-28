@@ -319,6 +319,8 @@ Building steps:
 
 > make all
 
+> sudo make install
+
 Invoking the interpreter
 ------------------------
 
