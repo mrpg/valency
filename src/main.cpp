@@ -190,7 +190,11 @@ inline bool isnum(const string& str) {
 	return true;
 }
 
-inline bool isfloat(const string& str) {
+bool isfloat(const string& str) {
+	if (str.length() == 0) {
+		return false;
+	}
+	
 	try {
 		stod(str);
 	}

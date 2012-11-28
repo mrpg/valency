@@ -1,4 +1,4 @@
-CXX = clang++
+CXX = g++
 LD = ld
 CXXFLAGS = -Wall -O3 -s -std=gnu++0x
 INSTALL_PROGRAM = install
