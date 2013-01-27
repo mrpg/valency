@@ -178,13 +178,15 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 }
 
 inline bool isnum(const string& str) {
-	int i = 0;
+	if (str.length() == 0) {
+		return false;
+	}
 	
-	for (auto& ch: str) {
-		if (!(ch >= '0' && ch <= '9') && !(i == 0 && ch == '-')) {
-			return false;
-		}
-		i++;
+	try {
+		stoll(str);
+	}
+	catch (...) {
+		return false;
 	}
 
 	return true;
