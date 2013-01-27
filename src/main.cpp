@@ -72,7 +72,7 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 			stream.get(ch);
 		}
 
-		ci = "";
+		/*ci = "";
 		while (!stream.eof()) {
 			ci += stream.get();
 			if (stream.eof() || stream.peek() == '\n' || stream.peek() == ' ') {
@@ -90,7 +90,7 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 			cl.clear();
 			getline(stream,ci);
 			continue;
-		}
+		}*/
 		
 		while (!stream.eof()) {
 			ch = stream.get();
@@ -321,6 +321,9 @@ void transform(const vector<string>& lines, vector<shared_ptr<instr_t>>& c) {
 			
 			if (pos != vars.top().end() && pos->second->type == XFUNCT) {
 				c.push_back(pos->second);
+			}
+			else if (ci.length() > 2 && ((ci.front() == '(' && ci.back() == ')') || (ci.front() == '{' && ci.back() == '}'))) {
+				c.push_back(getinstr(ci));
 			}
 			else {
 				cerr << "Fatal error: `" << ci << "' is not callable." << endl;
