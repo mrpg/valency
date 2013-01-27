@@ -1,0 +1,5 @@
+tonum (readstring) &a
+tonum (readstring) &b
+
+(if (> a 0) * /) a b &c
+print c
