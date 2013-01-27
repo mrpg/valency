@@ -178,7 +178,7 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 }
 
 inline bool isnum(const string& str) {
-	if (str.length() == 0) {
+	if (str.length() == 0 || str.find('.') || str.find('e') || str.find('E')) {
 		return false;
 	}
 	
