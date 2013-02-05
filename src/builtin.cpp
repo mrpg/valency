@@ -103,6 +103,42 @@ void builtin_while (vector<shared_ptr<instr_t>>& arg) {
 	}
 }
 
+void builtin_for_each (vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 5) {
+		if (arg[1]->type == XLISTT && arg[2]->type == XSTRINGT && arg[3]->type == XSTRINGT && arg[4]->type == XFUNCT) {
+			istringstream fstr(((func_t*)arg[4]->p)->user);
+			vector<vector<string>> lines;
+			vector<shared_ptr<instr_t>> instr;
+
+			parse(fstr, lines);
+
+			for (auto& cur: *((vlist*)arg[1]->p)) {
+				if (program_break || function_return) break;
+
+				vars.top()[*((string*)arg[2]->p)] = cur.first;
+				vars.top()[*((string*)arg[3]->p)] = cur.second;
+				
+				instr.clear();
+				
+				for (auto& ci: lines) {
+					transform(ci, instr);
+					call(instr);
+				}
+			}
+
+			program_break = false;
+		}
+		else {
+			cerr << "Wrong types for `for_each'." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "`for_each' needs exactly 4 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
+
 void builtin_if (vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
 		if (arg[2]->type == XFUNCT) {

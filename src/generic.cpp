@@ -101,7 +101,11 @@ shared_ptr<instr_t> instr_t::copy() {
 		np = new string(*((string*)this->p));
 	}
 	else if (this->type == XLISTT) {
-		np = new vlist(*((vlist*)this->p));
+		np = new vlist;
+
+		for (auto& cur: *((vlist*)this->p)) {
+			((vlist*)np)->push_back({(cur.first)->copy(),(cur.second)->copy()});
+		}
 	}
 	else if (this->type == XFUNCT) {
 		np = new func_t;

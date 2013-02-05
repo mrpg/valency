@@ -386,6 +386,7 @@ void register_builtin() {
 	reg(or); alias(||,or);
 	reg(and); alias(&&,and);
 	reg(remove_keys);
+	reg(for_each);
 }
 
 int main(int argc, char** argv) {
