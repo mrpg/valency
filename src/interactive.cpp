@@ -1,4 +1,4 @@
-/* Valency 1e-3
+/* Valency 0.1
  * 2012, Max R. P. Grossmann
  *
  * This program is free software. It comes without any warranty, to
@@ -8,7 +8,7 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
 
 void interactive_mode() {
-	cout << "Welcome, this is Valency 1e-3 starting in interactive mode [pre-alpha]." << endl;
+	cout << "Welcome, this is Valency 0.1 starting in interactive mode [pre-alpha]." << endl;
 	cout << "This program is free software. It comes without any warranty, to" << endl;
 	cout << "the extent permitted by applicable law. You can redistribute it" << endl;
 	cout << "and/or modify it under the terms of the Do What The Fuck You Want" << endl;
