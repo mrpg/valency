@@ -1,0 +1,12 @@
+makelist &li
+
+push &li 47.3
+push &li 4.2
+push &li 9
+push &li "Test"
+push &li "123!"
+push &li &not_existing
+
+for_each li "key" "val" {
+print key " => " val
+}
