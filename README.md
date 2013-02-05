@@ -121,6 +121,12 @@ If a <= b, _&result_ will be non-zero. If not, _&result_ will be 0.
 While _&cond_ is non-zero, _func_ is executed. Note that _&cond_ **must always**
 be a reference.
 
+> for\_each list keyname valname func
+
+Iterate over _list_, current key will be written to a variable with the name _keyname_ and
+current value will be written to a variable with the name _valname_. _func_ is executed (in the current namespace).
+_keyname_ and _valname_ must be strings.
+
 > if cond func [else]
 
 If _cond_ is non-zero, _func_ is executed. If _else_ is given and _cond_ is equal to
