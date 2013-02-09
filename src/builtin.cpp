@@ -128,6 +128,31 @@ void builtin_for_each (vector<shared_ptr<instr_t>>& arg) {
 
 			program_break = false;
 		}
+		else if (arg[1]->type == XLISTT && arg[4]->type == XFUNCT) {
+			istringstream fstr(((func_t*)arg[4]->p)->user);
+			vector<vector<string>> lines;
+			vector<shared_ptr<instr_t>> instr;
+
+			parse(fstr, lines);
+
+			for (auto& cur: *((vlist*)arg[1]->p)) {
+				if (program_break || function_return) break;
+
+				arg[2]->p = cur.first->p;
+				arg[2]->type = cur.first->type;
+				arg[3]->p = cur.second->p;
+				arg[3]->type = cur.second->type;
+				
+				instr.clear();
+				
+				for (auto& ci: lines) {
+					transform(ci, instr);
+					call(instr);
+				}
+			}
+
+			program_break = false;
+		}
 		else {
 			cerr << "Wrong types for `for_each'." << endl;
 			halt(28);

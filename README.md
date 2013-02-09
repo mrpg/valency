@@ -127,6 +127,8 @@ Iterate over _list_, current key will be written to a variable with the name _ke
 current value will be written to a variable with the name _valname_. _func_ is executed (in the current namespace).
 _keyname_ and _valname_ must be strings.
 
+_keyname_ and _valname_ can also be references. See example.
+
 > if cond func [else]
 
 If _cond_ is non-zero, _func_ is executed. If _else_ is given and _cond_ is equal to
@@ -269,7 +271,7 @@ The ASCII character 0x22 (") can be escaped with \".
 
 ### Subexpressions
 
-When one Valency function call is enclosed by ( and ), it is regarded as a Subexpression.
+When one Valency function call and/or argument is enclosed by ( and ), it is regarded as a Subexpression.
 This Subexpression is then evaluated and substituted for the actual evaluation result. That's
 why the last argument, representing a reference to the result variable, must not be specified
 in a Subexpression.
@@ -295,6 +297,8 @@ _With Subexpressions:_
 Subexpressions are very good, in nearly every situation. But: They are evaluated only once, namely
 when the interpreter finds the Subexpression in a function call. That's why Subexpressions cannot
 be used as conditions for the _while_ function, because they would be evaluated only once.
+
+See also examples/unnamed.txt for an example of function substitution.
 
 ### Function arguments
 

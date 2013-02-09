@@ -7,6 +7,6 @@ push &li "Test"
 push &li "123!"
 push &li &not_existing
 
-for_each li "key" "val" {
+for_each li &key &val {
 print key " => " val
 }
