@@ -317,6 +317,10 @@ void transform(const vector<string>& lines, vector<shared_ptr<instr_t>>& c) {
 
 	for (auto& ci: lines) {
 		if (i == 0) {
+			if (ci.length() == 0 || (ci.length() >= 1 && ci[0] == '#') || (ci.length() >= 2 && ci[0] == '-' && ci[1] == '-')) {
+				break;
+			}
+			
 			auto pos = vars.top().find(ci);
 			
 			if (pos != vars.top().end() && pos->second->type == XFUNCT) {
@@ -435,7 +439,7 @@ int main(int argc, char** argv) {
 
 	for (auto& ci: lines) {
 		transform(ci, instr);
-		call(instr);
+		if (instr.size() > 0) call(instr);
 	}
 
 	t.stop();

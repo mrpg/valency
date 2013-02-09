@@ -1,0 +1,9 @@
+#!../bin/valency
+
+-- This file consists of comments.
+-- There are no functions.
+-- It will do no harm.
+
+# Lines that start with a '#' are also recognized as comments.
+# Note: A line is either real Valency source code or it is a comment.
+# One line cannot contain both.
