@@ -1022,3 +1022,30 @@ void builtin_remove_keys(vector<shared_ptr<instr_t>>& arg) {
 		halt(34);
 	}
 }
+
+void builtin_curry(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() > 3) {
+		if (arg[1]->type == XFUNCT) {
+			gc_handler(arg[arg.size()-1]);
+			uint64_t i = 0, ix = arg.size()-1;
+			arg[ix]->p = new vlist;
+			arg[ix]->type = XLISTT;
+
+			for (auto& carg: arg) {
+				if (i != 0 && i != ix) {
+					((vlist*)(arg[ix]->p))->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i-1),XNUMT)),carg));
+				}
+				
+				i++;
+			}
+		}
+		else {
+			cerr << "Wrong types for `curry'." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "`curry' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}

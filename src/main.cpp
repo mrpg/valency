@@ -302,6 +302,9 @@ shared_ptr<instr_t> getinstr(const string& str) {
 	else if (isfloat(str)) {
 		r.reset(get(new double(stod(str)),XFLOATT));
 	}
+	else if (str == "..") {
+		r.reset(get(NULL,XEMPTYT));
+	}
 	else {
 		cerr << "Fatal error: `" << str << "' is unknown." << endl;
 		halt(2);
@@ -317,13 +320,16 @@ void transform(const vector<string>& lines, vector<shared_ptr<instr_t>>& c) {
 
 	for (auto& ci: lines) {
 		if (i == 0) {
-			if (ci.length() == 0 || (ci.length() >= 1 && ci[0] == '#') || (ci.length() >= 2 && ci[0] == '-' && ci[1] == '-')) {
+			auto pos = vars.top().find(ci);
+			
+			if (pos == vars.top().end() && (ci.length() == 0 || (ci.length() >= 1 && ci[0] == '#') || (ci.length() >= 2 && ci[0] == '-' && ci[1] == '-'))) {
 				break;
 			}
 			
-			auto pos = vars.top().find(ci);
-			
 			if (pos != vars.top().end() && pos->second->type == XFUNCT) {
+				c.push_back(pos->second);
+			}
+			else if (pos != vars.top().end() && pos->second->type == XLISTT && ((vlist*)(pos->second->p))->size() > 1 && ((vlist*)(pos->second->p))->at(0).second->type == XFUNCT) {
 				c.push_back(pos->second);
 			}
 			else if (ci.length() > 2 && ((ci.front() == '(' && ci.back() == ')') || (ci.front() == '{' && ci.back() == '}'))) {
@@ -343,54 +349,96 @@ void transform(const vector<string>& lines, vector<shared_ptr<instr_t>>& c) {
 }
 
 void call(vector<shared_ptr<instr_t>>& ci) {
-	(*(func_t*)(ci[0]->p))(ci);
+	if (ci.size() == 0) {
+		return;
+	}
+	
+	if (ci[0]->type == XFUNCT) {
+		(*(func_t*)(ci[0]->p))(ci);
+	}
+	else if (ci[0]->type == XLISTT) {
+		vector<shared_ptr<instr_t>> nci;
+		uint64_t ix = 1;
+
+		for (auto& cur: *((vlist*)ci[0]->p)) {
+			if (cur.second->type != XEMPTYT) {
+				nci.push_back(cur.second);
+			}
+			else {
+				if (ci.size() > ix-1) {
+					nci.push_back(ci[ix]);
+				}
+				else {
+					nci.push_back(shared_ptr<instr_t>(get(NULL,XNULLT)));
+				}
+
+				ix++;
+			}
+		}
+
+		for (auto& cur: ci) {
+			if (ix == 0) {
+				nci.push_back(cur);
+			}
+			else {
+				ix--;
+			}
+		}
+
+		(*(func_t*)(nci[0]->p))(nci);
+	}
+	else {
+		cerr << "Fatal error: This is not callable." << endl;
+		exit(122);
+	}
 }
 
 void register_builtin() {
 	#define alias(name,orig) vars.top()[#name].reset(get(new func_t(builtin_##orig),XFUNCT));
 	#define reg(name) vars.top()[#name].reset(get(new func_t(builtin_##name),XFUNCT));
 	
-	reg(set);
-	reg(mul); alias(*,mul);
-	reg(print);
-	reg(write);
 	reg(add); alias(+,add);
-	reg(sub); alias(-,sub);
-	reg(div); alias(/,div);
-	reg(mod); alias(%,mod);
-	reg(while);
-	reg(if);
-	reg(not);
-	reg(exit);
-	reg(gt); alias(>,gt);
-	reg(gte); alias(>=,gte);
-	reg(lt); alias(<,lt);
-	reg(lte); alias(<=,lte);
-	reg(is); alias(==,is);
-	reg(pow); alias(^,pow);
-	reg(log); alias(ln,log);
-	reg(sin);
+	reg(and); alias(&&,and);
 	reg(cos);
-	reg(tostring);
-	reg(tonum);
-	reg(tofloat);
-	reg(tofunc);
-	reg(tovar);
-	reg(replace);
-	reg(makelist);
-	reg(list_add);
-	reg(push);
+	reg(curry);
 	reg(delete);
-	reg(find);
-	reg(readstring);
+	reg(div); alias(/,div);
+	reg(exit);
 	reg(export);
 	reg(export_clear);
-	reg(length);
-	reg(type); alias(:,type);
-	reg(or); alias(||,or);
-	reg(and); alias(&&,and);
-	reg(remove_keys);
+	reg(find);
 	reg(for_each);
+	reg(gt); alias(>,gt);
+	reg(gte); alias(>=,gte);
+	reg(if);
+	reg(is); alias(==,is);
+	reg(length);
+	reg(list_add);
+	reg(log); alias(ln,log);
+	reg(lt); alias(<,lt);
+	reg(lte); alias(<=,lte);
+	reg(makelist);
+	reg(mod); alias(%,mod);
+	reg(mul); alias(*,mul);
+	reg(not);
+	reg(or); alias(||,or);
+	reg(pow); alias(^,pow);
+	reg(print);
+	reg(push);
+	reg(readstring);
+	reg(remove_keys);
+	reg(replace);
+	reg(set);
+	reg(sin);
+	reg(sub); alias(-,sub);
+	reg(tofloat);
+	reg(tofunc);
+	reg(tonum);
+	reg(tostring);
+	reg(tovar);
+	reg(type); alias(:,type);
+	reg(while);
+	reg(write);
 }
 
 int main(int argc, char** argv) {
@@ -439,7 +487,7 @@ int main(int argc, char** argv) {
 
 	for (auto& ci: lines) {
 		transform(ci, instr);
-		if (instr.size() > 0) call(instr);
+		call(instr);
 	}
 
 	t.stop();

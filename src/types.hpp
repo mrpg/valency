@@ -36,6 +36,7 @@ enum var_type : char {
 	XFLOATT = 3,
 	XFUNCT = 4,
 	XNULLT = 0,
+	XEMPTYT = 7,
 	XLISTT = 6
 };
 

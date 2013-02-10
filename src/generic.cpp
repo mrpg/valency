@@ -52,6 +52,7 @@ inline void gc_handler(shared_ptr<instr_t> ptr) {
 	
 	switch (ptr->type) {
 		case XNULLT: break;
+		case XEMPTYT: break;
 		case XNUMT: delete (int64_t*)ptr->p; break;
 		case XSTRINGT: delete (string*)ptr->p; break;
 		case XFLOATT: delete (double*)ptr->p; break;
@@ -114,8 +115,7 @@ shared_ptr<instr_t> instr_t::copy() {
 		((func_t*)np)->built = ((func_t*)this->p)->built;
 	}
 	else {
-		// Will never happen
-		np = NULL;
+		np = this->p;
 	}
 
 	r->p = np;
