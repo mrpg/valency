@@ -312,6 +312,23 @@ that follow this syntax can be used with Subexpressions.
 Inside an user-defined function, function arguments can be accessed by using _#_ in front of the argument number,
 where _#1_ is the first argument, _#2_ the second, etc. The number of arguments is in _#n_.
 
+### Currying/Partial Application
+
+See en.wikipedia.org/wiki/Partial%5Fapplication
+
+You can use the _curry_ command to produce a function-like list from another function. This function-like
+list will have a smaller arity than the original function.
+
+You can use the _curry_ command like that:
+
+> curry func [args...] &out
+
+To fix (bind) an argument to the function, specify it. To leave it open, type "..".
+
+The new function-like list will be put into &out. It is possible to call and use it as a normal function.
+
+A self-explanatory example can be found in examples/curry.txt.
+
 Building the interpreter
 ------------------------
 

@@ -5,4 +5,5 @@ set &f {
 set &g (curry f .. 4.2)
 
 print (g 3)
--- This call is equivalent to 'f 3 4.2'.
+-- This call is equivalent to 'print (f 3 4.2)'.
+-- Note: The Subexpression argument is silently passed.
