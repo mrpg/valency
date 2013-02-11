@@ -444,8 +444,6 @@ void register_builtin() {
 int main(int argc, char** argv) {
 	Chronometry t;
 
-	t.start();
-
 	vector<vector<string>> lines;
 	vector<shared_ptr<instr_t>> instr;
 
@@ -468,6 +466,8 @@ int main(int argc, char** argv) {
 			copy(istreambuf_iterator<char>(fp),istreambuf_iterator<char>(),ostreambuf_iterator<char>(buffer));
 
 			fp.close();
+
+			t.start();
 			
 			parse(buffer,lines);
 		}

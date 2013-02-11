@@ -1039,6 +1039,19 @@ void builtin_curry(vector<shared_ptr<instr_t>>& arg) {
 				i++;
 			}
 		}
+		else if (arg[1]->type == XLISTT) {
+			gc_handler(arg[arg.size()-1]);
+			uint64_t i = 2, ix = arg.size()-1;
+			arg[ix]->p = new vlist(*((vlist*)arg[1]->p));
+			arg[ix]->type = XLISTT;
+
+			for (auto& csubst: *((vlist*)(arg[ix]->p))) {
+				if (csubst.second->type == XEMPTYT && i < ix) {
+					csubst.second = arg[i];
+					i++;
+				}
+			}
+		}
 		else {
 			cerr << "Wrong types for `curry'." << endl;
 			halt(28);
