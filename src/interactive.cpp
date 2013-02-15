@@ -8,12 +8,12 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
 
 void interactive_mode() {
-	cout << "Welcome, this is Valency 0.1 starting in interactive mode [pre-alpha]." << endl;
-	cout << "This program is free software. It comes without any warranty, to" << endl;
-	cout << "the extent permitted by applicable law. You can redistribute it" << endl;
-	cout << "and/or modify it under the terms of the Do What The Fuck You Want" << endl;
-	cout << "To Public License, Version 2, as published by Sam Hocevar." << endl;
-	cout << endl << "Max R. P. Grossmann, 2012." << endl;
+	cout << "Valency 0.1 [" << __DATE__ << ' ' << __TIME__ << "]\n\n";
+	cout << "This program is free software. It comes without any warranty, to\n";
+	cout << "the extent permitted by applicable law. You can redistribute it\n";
+	cout << "and/or modify it under the terms of the Do What The Fuck You Want\n";
+	cout << "To Public License, Version 2, as published by Sam Hocevar.\n";
+	cout << endl << "Max R. P. Grossmann, 2012.\n";
     cout << endl;
 
     string cmd;
@@ -69,5 +69,5 @@ void interactive_mode() {
 		t += ti.time();
 	}
 
-	cout << endl << "Execution time: " << t << " s" << endl;
+	cout << endl << "Execution time: " << t << " s\n";
 }

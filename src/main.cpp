@@ -72,26 +72,6 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 			stream.get(ch);
 		}
 
-		/*ci = "";
-		while (!stream.eof()) {
-			ci += stream.get();
-			if (stream.eof() || stream.peek() == '\n' || stream.peek() == ' ') {
-				break;
-			}
-		}
-		cl.push_back(ci);
-
-		if (ci == "--") {
-			cl.clear();
-			getline(stream,ci);
-			continue;
-		}
-		else if (ci[0] == '#') {
-			cl.clear();
-			getline(stream,ci);
-			continue;
-		}*/
-		
 		while (!stream.eof()) {
 			ch = stream.get();
 
@@ -117,16 +97,24 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 			}
 			else if (ch == '{') {
 				int lvl = 0;
+				bool in_string = false;
 				ci = ch;
 				ci += ' ';
 
-				while (!((ch = stream.get()) == '}' && lvl == 0) && !stream.eof()) {
+				while (!((ch = stream.get()) == '}' && lvl == 0 && !in_string) && !stream.eof()) {
 					ci += ch;
 
-					if (ch == '{') {
+					if (ch == '"' && !in_string) {
+						in_string = true;
+					}
+					else if (ch == '"' && in_string) {
+						in_string = false;
+					}
+
+					if (ch == '{' && !in_string) {
 						lvl++;
 					}
-					else if (ch == '}') {
+					else if (ch == '}' && !in_string) {
 						lvl--;
 					}
 				}
@@ -137,15 +125,23 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 			}
 			else if (ch == '(') {
 				int lvl = 0;
+				bool in_string = false;
 				ci = ch;
 
-				while (!((ch = stream.get()) == ')' && lvl == 0) && !stream.eof()) {
+				while (!((ch = stream.get()) == ')' && lvl == 0 && !in_string) && !stream.eof()) {
 					ci += ch;
 
-					if (ch == '(') {
+					if (ch == '"' && !in_string) {
+						in_string = true;
+					}
+					else if (ch == '"' && in_string) {
+						in_string = false;
+					}
+
+					if (ch == '(' && !in_string) {
 						lvl++;
 					}
-					else if (ch == ')') {
+					else if (ch == ')' && !in_string) {
 						lvl--;
 					}
 				}
@@ -480,6 +476,8 @@ int main(int argc, char** argv) {
 		}
 	}
 	else {
+		t.start();
+		
 		parse(cin,lines);
 	}
 
