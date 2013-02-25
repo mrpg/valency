@@ -492,11 +492,11 @@ int main(int argc, char** argv) {
 
 	cerr << "t = " << t.time() << " s" << endl;
 
-	while (!vars.empty()) {
-		for (auto& cur: vars.top()) {
-			gc_handler(cur.second);
-		}
-		
-		vars.pop();
-	}
+	//~ while (!vars.empty()) {
+		//~ for (auto& cur: vars.top()) {
+			//~ gc_handler(cur.second);
+		//~ }
+		//~ 
+		//~ vars.pop();
+	//~ }
 }

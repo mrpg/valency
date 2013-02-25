@@ -9,7 +9,7 @@
 
 void builtin_set(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		gc_handler(arg[1]);
+		//~ gc_handler(arg[1]);
 		arg[1]->p = arg[2]->p;
 		arg[1]->type = arg[2]->type;
 	}
@@ -238,7 +238,7 @@ void builtin_if (vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_gt(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 4) {
-		gc_handler(arg[3]);
+		//~ gc_handler(arg[3]);
 		arg[3]->p = new int64_t;
 		arg[3]->type = XNUMT;
 
@@ -272,7 +272,7 @@ void builtin_gt(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_gte(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 4) {
-		gc_handler(arg[3]);
+		//~ gc_handler(arg[3]);
 		arg[3]->p = new int64_t;
 		arg[3]->type = XNUMT;
 
@@ -306,7 +306,7 @@ void builtin_gte(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_lt(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 4) {
-		gc_handler(arg[3]);
+		//~ gc_handler(arg[3]);
 		arg[3]->p = new int64_t;
 		arg[3]->type = XNUMT;
 
@@ -340,7 +340,7 @@ void builtin_lt(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_lte(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 4) {
-		gc_handler(arg[3]);
+		//~ gc_handler(arg[3]);
 		arg[3]->p = new int64_t;
 		arg[3]->type = XNUMT;
 
@@ -412,7 +412,7 @@ bool is(shared_ptr<instr_t> a, shared_ptr<instr_t> b) {
 
 void builtin_is(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 4) {
-		gc_handler(arg[3]);
+		//~ gc_handler(arg[3]);
 		arg[3]->p = new int64_t;
 		arg[3]->type = XNUMT;
 
@@ -426,7 +426,7 @@ void builtin_is(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_not(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		gc_handler(arg[2]);
+		//~ gc_handler(arg[2]);
 		arg[2]->p = new int64_t;
 		arg[2]->type = XNUMT;
 
@@ -442,7 +442,7 @@ void builtin_not(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_pow(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 4) {
-		gc_handler(arg[3]);
+		//~ gc_handler(arg[3]);
 		arg[3]->p = new double;
 		arg[3]->type = XFLOATT;
 
@@ -472,7 +472,7 @@ void builtin_pow(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_log(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		gc_handler(arg[2]);
+		//~ gc_handler(arg[2]);
 		arg[2]->p = new double;
 		arg[2]->type = XFLOATT;
 
@@ -502,7 +502,7 @@ void builtin_log(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_sin(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		gc_handler(arg[2]);
+		//~ gc_handler(arg[2]);
 		arg[2]->p = new double;
 		arg[2]->type = XFLOATT;
 
@@ -532,7 +532,7 @@ void builtin_sin(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_cos(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		gc_handler(arg[2]);
+		//~ gc_handler(arg[2]);
 		arg[2]->p = new double;
 		arg[2]->type = XFLOATT;
 
@@ -562,7 +562,7 @@ void builtin_cos(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_tostring(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		gc_handler(arg[2]);
+		//~ gc_handler(arg[2]);
 		arg[2]->p = new string;
 		arg[2]->type = XSTRINGT;
 
@@ -577,7 +577,7 @@ void builtin_tostring(vector<shared_ptr<instr_t>>& arg) {
 			*((string*)arg[2]->p) = ((func_t*)arg[1]->p)->user;
 		}
 		else if (arg[1]->type == XSTRINGT) {
-			gc_handler(arg[2]);
+			//~ gc_handler(arg[2]);
 			arg[2]->p = arg[1]->p;
 		}
 		else {
@@ -593,7 +593,7 @@ void builtin_tostring(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_tonum(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		gc_handler(arg[2]);
+		//~ gc_handler(arg[2]);
 		arg[2]->type = XNUMT;
 		
 		if (arg[1]->type == XFLOATT) {
@@ -618,7 +618,7 @@ void builtin_tonum(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_tofloat(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		gc_handler(arg[2]);
+		//~ gc_handler(arg[2]);
 		arg[2]->type = XFLOATT;
 		
 		if (arg[1]->type == XNUMT) {
@@ -646,7 +646,7 @@ void builtin_tofunc(vector<shared_ptr<instr_t>>& arg) {
 		arg[2]->type = XFUNCT;
 
 		if (arg[1]->type == XSTRINGT) {
-			gc_handler(arg[2]);
+			//~ gc_handler(arg[2]);
 			
 			arg[2]->p = new func_t((*((string*)arg[1]->p)));
 		}
@@ -692,7 +692,7 @@ inline void replace(string& a, const string& b, const string& c) {
 void builtin_replace(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 5) {
 		if (arg[1]->type == XSTRINGT && arg[2]->type == XSTRINGT && arg[3]->type == XSTRINGT) {
-			gc_handler(arg[4]);
+			//~ gc_handler(arg[4]);
 			
 			arg[4]->p = new string(*((string*)arg[1]->p));
 			arg[4]->type = XSTRINGT;
@@ -717,7 +717,7 @@ void builtin_tovar(vector<shared_ptr<instr_t>>& arg) {
 				vars.top()[*((string*)arg[1]->p)].reset(get(NULL,XNULLT));
 			}
 
-			gc_handler(arg[2]);
+			//~ gc_handler(arg[2]);
 
 			memcpy(arg[2].get(),vars.top()[*((string*)arg[1]->p)].get(),sizeof(instr_t));
 		}
@@ -734,7 +734,7 @@ void builtin_tovar(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_makelist(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 2) {
-		gc_handler(arg[1]);
+		//~ gc_handler(arg[1]);
 		arg[1]->p = new vlist;
 		arg[1]->type = XLISTT;
 	}
@@ -776,7 +776,7 @@ void builtin_find(vector<shared_ptr<instr_t>>& arg) {
 			for (auto& cur: *((vlist*)arg[1]->p)) {
 				if (is(cur.first,arg[2])) {
 
-					gc_handler(arg[3]);
+					//~ gc_handler(arg[3]);
 					arg[3]->p = (cur.second)->p;
 					arg[3]->type = (cur.second)->type;
 					
@@ -786,7 +786,7 @@ void builtin_find(vector<shared_ptr<instr_t>>& arg) {
 		}
 		else if (arg[1]->type == XSTRINGT && arg[2]->type == XNUMT) {
 			if ((int64_t)(((string*)arg[1]->p)->length()) > *((int64_t*)arg[2]->p)) {
-				gc_handler(arg[3]);
+				//~ gc_handler(arg[3]);
 				arg[3]->p = new string;
 				arg[3]->type = XSTRINGT;
 				((string*)arg[3]->p)->push_back(((string*)arg[1]->p)->at(*((int64_t*)arg[2]->p)));
@@ -800,7 +800,7 @@ void builtin_find(vector<shared_ptr<instr_t>>& arg) {
 		}
 
 		if (arg[3]->type != XNULLT) {
-			gc_handler(arg[3]);
+			//~ gc_handler(arg[3]);
 			arg[3]->p = NULL;
 			arg[3]->type = XNULLT;
 		}
@@ -814,12 +814,12 @@ void builtin_find(vector<shared_ptr<instr_t>>& arg) {
 void builtin_length(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
 		if (arg[1]->type == XLISTT) {
-			gc_handler(arg[2]);
+			//~ gc_handler(arg[2]);
 			arg[2]->p = new int64_t(((vlist*)arg[1]->p)->size());
 			arg[2]->type = XNUMT;
 		}
 		else if (arg[1]->type == XSTRINGT) {
-			gc_handler(arg[2]);
+			//~ gc_handler(arg[2]);
 			arg[2]->p = new int64_t(((string*)arg[1]->p)->size());
 			arg[2]->type = XNUMT;
 		}
@@ -836,18 +836,18 @@ void builtin_length(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_readstring(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 2) {
-		gc_handler(arg[1]);
+		//~ gc_handler(arg[1]);
 		arg[1]->p = new string;
 		arg[1]->type = XSTRINGT;
 
 		cin >> *((string*)arg[1]->p);
 	}
 	else if (arg.size() == 3) {
-		gc_handler(arg[1]);
+		//~ gc_handler(arg[1]);
 		arg[1]->p = new string;
 		arg[1]->type = XSTRINGT;
 
-		gc_handler(arg[2]);
+		//~ gc_handler(arg[2]);
 		arg[2]->p = new int64_t((cin >> *((string*)arg[1]->p)) ? 1 : 0);
 		arg[2]->type = XNUMT;
 	}
@@ -885,7 +885,7 @@ void builtin_export_clear(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_type(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		gc_handler(arg[2]);
+		//~ gc_handler(arg[2]);
 
 		arg[2]->p = new string;
 		arg[2]->type = XSTRINGT;
@@ -932,7 +932,7 @@ void builtin_push(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_or(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() >= 4) {
-		gc_handler(arg[arg.size()-1]);
+		//~ gc_handler(arg[arg.size()-1]);
 		arg[arg.size()-1]->p = new int64_t;
 		arg[arg.size()-1]->type = XNUMT;
 
@@ -959,7 +959,7 @@ void builtin_or(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_and(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() >= 4) {
-		gc_handler(arg[arg.size()-1]);
+		//~ gc_handler(arg[arg.size()-1]);
 		arg[arg.size()-1]->p = new int64_t;
 		arg[arg.size()-1]->type = XNUMT;
 
@@ -1026,7 +1026,7 @@ void builtin_remove_keys(vector<shared_ptr<instr_t>>& arg) {
 void builtin_curry(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() > 3) {
 		if (arg[1]->type == XFUNCT) {
-			gc_handler(arg[arg.size()-1]);
+			//~ gc_handler(arg[arg.size()-1]);
 			uint64_t i = 0, ix = arg.size()-1;
 			arg[ix]->p = new vlist;
 			arg[ix]->type = XLISTT;
@@ -1040,7 +1040,7 @@ void builtin_curry(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else if (arg[1]->type == XLISTT) {
-			gc_handler(arg[arg.size()-1]);
+			//~ gc_handler(arg[arg.size()-1]);
 			uint64_t i = 2, ix = arg.size()-1;
 			arg[ix]->p = new vlist(*((vlist*)arg[1]->p));
 			arg[ix]->type = XLISTT;

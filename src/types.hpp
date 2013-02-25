@@ -24,7 +24,7 @@ typedef vector<pair<shared_ptr<instr_t>,shared_ptr<instr_t>>> vlist;
 
 stack<unordered_map<string,shared_ptr<instr_t>>> vars;
 unordered_map<string,shared_ptr<instr_t>> declared_export;
-vector<void*> deleted;
+//~ vector<void*> deleted;
 
 bool interactive = false;
 bool interactive_error = false;

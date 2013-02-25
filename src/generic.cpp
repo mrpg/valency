@@ -46,32 +46,32 @@ instr_t* get(void* np, var_type ntype) {
 }
 
 inline void gc_handler(shared_ptr<instr_t> ptr) {
-	if (find(deleted.begin(),deleted.end(),ptr->p) != deleted.end()) {
-		return;
-	}
-	
-	switch (ptr->type) {
-		case XNULLT: break;
-		case XEMPTYT: break;
-		case XNUMT: delete (int64_t*)ptr->p; break;
-		case XSTRINGT: delete (string*)ptr->p; break;
-		case XFLOATT: delete (double*)ptr->p; break;
-		case XFUNCT: delete (func_t*)ptr->p; break;
-		case XLISTT: {
-						for (auto cur: *((vlist*)ptr->p)) {
-							gc_handler(cur.first);
-							gc_handler(cur.second);
-						}
-						
-						delete (vlist*)ptr->p;
-						break;
-		             }
-	}
-
-	deleted.push_back(ptr->p);
-
-	ptr->type = XNULLT;
-	ptr->p = nullptr;
+	//~ if (find(deleted.begin(),deleted.end(),ptr->p) != deleted.end()) {
+		//~ return;
+	//~ }
+	//~ 
+	//~ switch (ptr->type) {
+		//~ case XNULLT: break;
+		//~ case XEMPTYT: break;
+		//~ case XNUMT: delete (int64_t*)ptr->p; break;
+		//~ case XSTRINGT: delete (string*)ptr->p; break;
+		//~ case XFLOATT: delete (double*)ptr->p; break;
+		//~ case XFUNCT: delete (func_t*)ptr->p; break;
+		//~ case XLISTT: {
+						//~ for (auto cur: *((vlist*)ptr->p)) {
+							//~ gc_handler(cur.first);
+							//~ gc_handler(cur.second);
+						//~ }
+						//~ 
+						//~ delete (vlist*)ptr->p;
+						//~ break;
+		             //~ }
+	//~ }
+//~ 
+	//~ deleted.push_back(ptr->p);
+//~ 
+	//~ ptr->type = XNULLT;
+	//~ ptr->p = nullptr;
 }
 
 instr_t::instr_t() {
@@ -183,9 +183,9 @@ void func_t::operator()(vector<shared_ptr<instr_t>>& arg) {
 			i++;
 		}
 
-		if (vars.top().find("#n") != vars.top().end()) {
-			gc_handler(vars.top()["#n"]);
-		}
+		//~ if (vars.top().find("#n") != vars.top().end()) {
+			//~ gc_handler(vars.top()["#n"]);
+		//~ }
 		
 		vars.top()["#n"].reset(get(new int64_t(arg.size()-1), XNUMT));
 

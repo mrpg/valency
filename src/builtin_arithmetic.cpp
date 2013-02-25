@@ -83,7 +83,7 @@ inline var_type biggest_range(vector<shared_ptr<instr_t>>& arg) {
 void builtin_mul(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() >= 4) {
 		size_t m = arg.size()-1;
-		gc_handler(arg[m]);
+		//~ gc_handler(arg[m]);
 		arg[m]->type = biggest_range(arg);
 		size_t i = 0;
 
@@ -123,7 +123,7 @@ void builtin_mul(vector<shared_ptr<instr_t>>& arg) {
 void builtin_add(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() >= 4) {
 		size_t m = arg.size()-1;
-		gc_handler(arg[m]);
+		//~ gc_handler(arg[m]);
 		arg[m]->type = biggest_range(arg);
 		size_t i = 0;
 
@@ -174,7 +174,7 @@ void builtin_add(vector<shared_ptr<instr_t>>& arg) {
 void builtin_sub(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() >= 4) {
 		size_t m = arg.size()-1;
-		gc_handler(arg[m]);
+		//~ gc_handler(arg[m]);
 		arg[m]->type = biggest_range(arg);
 		size_t i = 0;
 
@@ -214,7 +214,7 @@ void builtin_sub(vector<shared_ptr<instr_t>>& arg) {
 void builtin_div(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() >= 4) {
 		size_t m = arg.size()-1;
-		gc_handler(arg[m]);
+		//~ gc_handler(arg[m]);
 		arg[m]->type = XFLOATT;
 		size_t i = 0;
 
@@ -237,7 +237,7 @@ void builtin_div(vector<shared_ptr<instr_t>>& arg) {
 void builtin_mod(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() >= 4) {
 		size_t m = arg.size()-1;
-		gc_handler(arg[m]);
+		//~ gc_handler(arg[m]);
 		arg[m]->type = biggest_range(arg);
 		size_t i = 0;
 
