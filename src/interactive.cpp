@@ -22,6 +22,8 @@ void interactive_mode() {
     double t = 0;
     Chronometry ti;
 
+    cout << "> ";
+
     while (getline(cin,cmd)) {
 		if (cmd.back() == '\\') {
 			cmd.erase(cmd.end()-1);
