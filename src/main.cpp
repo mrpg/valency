@@ -426,6 +426,7 @@ void register_builtin() {
 	reg(replace);
 	reg(set);
 	reg(sin);
+	reg(split);
 	reg(sub); alias(-,sub);
 	reg(tofloat);
 	reg(tofunc);

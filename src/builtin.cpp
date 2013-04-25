@@ -6,6 +6,16 @@
  * and/or modify it under the terms of the Do What The Fuck You Want
  * To Public License, Version 2, as published by Sam Hocevar. See
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
+ 
+inline bool in(const string* s, char c) {
+	for (auto& cur: *s) {
+		if (c == cur) {
+			return true;
+		}
+	}
+	
+	return false;
+}
 
 void builtin_set(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
@@ -1059,6 +1069,91 @@ void builtin_curry(vector<shared_ptr<instr_t>>& arg) {
 	}
 	else {
 		cerr << "`curry' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
+
+void builtin_split(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 4) {
+		if (arg[1]->type == XSTRINGT && arg[2]->type == XSTRINGT) {
+			arg[3]->p = new vlist;
+			arg[3]->type = XLISTT;
+			string cur;
+			int64_t i = 0;
+			
+			if (((string*)arg[2]->p)->length() == 1) {
+				for (auto& ch: *((string*)arg[1]->p)) {
+					if (ch == ((string*)arg[2]->p)->at(0)) {
+						((vlist*)arg[3]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new string(cur),XSTRINGT))));
+						cur.clear();
+						i++;
+					}
+					else {
+						cur += ch;
+					}
+				}
+				
+				((vlist*)arg[3]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new string(cur),XSTRINGT))));
+			}
+			else {
+				for (auto& ch: *((string*)arg[1]->p)) {
+					if (in((string*)arg[2]->p,ch)) {
+						((vlist*)arg[3]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new string(cur),XSTRINGT))));
+						cur.clear();
+						i++;
+					}
+					else {
+						cur += ch;
+					}
+				}
+				
+				((vlist*)arg[3]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new string(cur),XSTRINGT))));
+			}
+		}
+		else if (arg[1]->type == XSTRINGT && (arg[2]->type == XNUMT || arg[2]->type == XFLOATT)) {
+			int64_t sp;
+			
+			if (arg[2]->type == XFLOATT) {
+				sp = int64_t(*((double*)arg[2]->p));
+			}
+			else {
+				sp = *((int64_t*)arg[2]->p);
+			}
+			
+			if (sp <= 0) {
+				cerr << "split's second argument must be >= 1." << endl;
+				halt(32);
+			}
+			else {
+				arg[3]->p = new vlist;
+				arg[3]->type = XLISTT;
+				string cur;
+				int64_t i = 0, n = 0;
+			
+				for (auto& ch: *((string*)arg[1]->p)) {
+					n++;
+					
+					cur += ch;
+					
+					if (n%sp == 0) {
+						((vlist*)arg[3]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new string(cur),XSTRINGT))));
+						cur.clear();
+						i++;
+					}
+				}
+				
+				if ((((string*)arg[1]->p)->length())%sp != 0) {				
+					((vlist*)arg[3]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new string(cur),XSTRINGT))));
+				}
+			}
+		}
+		else {
+			cerr << "Wrong types for `split'." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "`split' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
