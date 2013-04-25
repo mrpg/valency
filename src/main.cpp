@@ -81,7 +81,7 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 			if (ch == '"') {
 				ci = ch;
 
-				while ((ch = stream.get()) != '"' && !stream.eof()) {
+				while ((ch = stream.get()) != '"' && ch != EOF) {
 					ci += ch;
 
 					if (ch == '\\') {
@@ -101,7 +101,7 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 				ci = ch;
 				ci += ' ';
 
-				while (!((ch = stream.get()) == '}' && lvl == 0 && !in_string) && !stream.eof()) {
+				while (!((ch = stream.get()) == '}' && lvl == 0 && !in_string) && ch != EOF) {
 					ci += ch;
 
 					if (ch == '"' && !in_string) {
@@ -128,7 +128,7 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 				bool in_string = false;
 				ci = ch;
 
-				while (!((ch = stream.get()) == ')' && lvl == 0 && !in_string) && !stream.eof()) {
+				while (!((ch = stream.get()) == ')' && lvl == 0 && !in_string) && ch != EOF) {
 					ci += ch;
 
 					if (ch == '"' && !in_string) {
@@ -152,8 +152,8 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 			}
 			else {
 				ci = ch;
-				while ((ch = stream.get()) != ' ' && ch != '\n' && !stream.eof()) {
-					if (!stream.eof()) ci += ch;
+				while ((ch = stream.get()) != ' ' && ch != '\n') {
+					if (ch != EOF) ci += ch;
 				}
 				cl.push_back(ci);
 				ci = "";

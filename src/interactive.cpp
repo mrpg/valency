@@ -22,14 +22,7 @@ void interactive_mode() {
     double t = 0;
     Chronometry ti;
 
-    while (!cin.eof()) {
-		cmd.clear();
-		line.clear();
-		instr.clear();
-		cout << "> ";
-
-		getline(cin,cmd);
-
+    while (getline(cin,cmd)) {
 		if (cmd.back() == '\\') {
 			cmd.erase(cmd.end()-1);
 			string cur;
@@ -67,6 +60,11 @@ void interactive_mode() {
 		ti.stop();
 
 		t += ti.time();
+
+		cmd.clear();
+		line.clear();
+		instr.clear();
+		cout << "> ";
 	}
 
 	cout << endl << "Execution time: " << t << " s\n";
