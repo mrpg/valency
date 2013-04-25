@@ -238,6 +238,14 @@ Determines the type of _a_ and writes a string to _&result_. Depending on the ty
 * _string_ -- for a string
 * _undefined_ and _null_ for corresponding types
 
+> split str delimiter &result
+
+Split _str_ into a list. These substrings of _str_ are formed by their _delimiter_. If _delimiter_ is longer than one character, each of the delimiter's characters work as a valid delimiter.
+
+If _delimiter_ is a number, _str_ will be cut in substrings and converted to a list. Each substring will have a length not greater than _delimiter_.
+
+See examples/split.txt.
+
 ### Notation
 
 One line consists of this scheme:

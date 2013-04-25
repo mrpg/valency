@@ -1,0 +1,5 @@
+print (split "a,b,cd,efg" ",")
+
+print (split "1-2.3-4+5" ".-")
+
+print (split "abcdef" 4)
