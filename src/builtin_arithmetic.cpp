@@ -110,12 +110,12 @@ void builtin_mul(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `mul'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `mul'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`mul' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `mul' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -161,12 +161,12 @@ void builtin_add(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `add'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `add'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`add' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `add' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -201,12 +201,12 @@ void builtin_sub(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `sub'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `sub'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`sub' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `sub' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -229,7 +229,7 @@ void builtin_div(vector<shared_ptr<instr_t>>& arg) {
 		}
 	}
 	else {
-		cerr << "`div' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `div' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -264,12 +264,12 @@ void builtin_mod(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `mod'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `mod'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`mod' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `mod' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }

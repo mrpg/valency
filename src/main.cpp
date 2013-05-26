@@ -421,6 +421,7 @@ void register_builtin() {
 	reg(pow); alias(^,pow);
 	reg(print);
 	reg(push);
+	reg(readlines);
 	reg(readstring);
 	reg(remove_keys);
 	reg(replace);

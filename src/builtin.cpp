@@ -24,7 +24,7 @@ void builtin_set(vector<shared_ptr<instr_t>>& arg) {
 		arg[1]->type = arg[2]->type;
 	}
 	else {
-		cerr << "`set' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `set' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -103,12 +103,12 @@ void builtin_while (vector<shared_ptr<instr_t>>& arg) {
 			program_break = false;
 		}
 		else {
-			cerr << "Wrong types for `while'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `while'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`while' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `while' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -164,12 +164,12 @@ void builtin_for_each (vector<shared_ptr<instr_t>>& arg) {
 			program_break = false;
 		}
 		else {
-			cerr << "Wrong types for `for_each'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `for_each'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`for_each' needs exactly 4 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `for_each' needs exactly 4 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -191,7 +191,7 @@ void builtin_if (vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `if'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `if'." << endl;
 			halt(28);
 		}
 	}
@@ -223,7 +223,7 @@ void builtin_if (vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `if'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `if'." << endl;
 			halt(28);
 		}
 	}
@@ -241,7 +241,7 @@ void builtin_if (vector<shared_ptr<instr_t>>& arg) {
 		}
 	}
 	else {
-		cerr << "`if' needs 2 or 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `if' needs 2 or 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -270,12 +270,12 @@ void builtin_gt(vector<shared_ptr<instr_t>>& arg) {
 			*((int64_t*)arg[3]->p) = ((*((string*)arg[1]->p)) > (*((string*)arg[2]->p))) ? 1 : 0;
 		}
 		else {
-			cerr << "Wrong types for `gt'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `gt'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`gt' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `gt' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -304,12 +304,12 @@ void builtin_gte(vector<shared_ptr<instr_t>>& arg) {
 			*((int64_t*)arg[3]->p) = ((*((string*)arg[1]->p)) >= (*((string*)arg[2]->p))) ? 1 : 0;
 		}
 		else {
-			cerr << "Wrong types for `gte'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `gte'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`gte' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `gte' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -338,12 +338,12 @@ void builtin_lt(vector<shared_ptr<instr_t>>& arg) {
 			*((int64_t*)arg[3]->p) = ((*((string*)arg[1]->p)) < (*((string*)arg[2]->p))) ? 1 : 0;
 		}
 		else {
-			cerr << "Wrong types for `lt'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `lt'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`lt' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `lt' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -372,12 +372,12 @@ void builtin_lte(vector<shared_ptr<instr_t>>& arg) {
 			*((int64_t*)arg[3]->p) = ((*((string*)arg[1]->p)) <= (*((string*)arg[2]->p))) ? 1 : 0;
 		}
 		else {
-			cerr << "Wrong types for `lte'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `lte'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`lte' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `lte' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -429,7 +429,7 @@ void builtin_is(vector<shared_ptr<instr_t>>& arg) {
 		*((int64_t*)arg[3]->p) = (is(arg[1],arg[2]) == true) ? 1 : 0;
 	}
 	else {
-		cerr << "`is' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `is' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -445,7 +445,7 @@ void builtin_not(vector<shared_ptr<instr_t>>& arg) {
 		*((int64_t*)arg[2]->p) = (!checkcond(arg[1])) ? 1 : 0;
 	}
 	else {
-		cerr << "`not' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `not' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -470,12 +470,12 @@ void builtin_pow(vector<shared_ptr<instr_t>>& arg) {
 			*((double*)arg[3]->p) = pow((*((int64_t*)arg[1]->p)),(*((int64_t*)arg[2]->p)));
 		}
 		else {
-			cerr << "Wrong types for `pow'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `pow'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`pow' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `pow' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -500,12 +500,12 @@ void builtin_log(vector<shared_ptr<instr_t>>& arg) {
 			*((double*)arg[2]->p) = log((*((int64_t*)arg[1]->p)));
 		}
 		else {
-			cerr << "Wrong types for `log'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `log'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`log' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `log' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -530,12 +530,12 @@ void builtin_sin(vector<shared_ptr<instr_t>>& arg) {
 			*((double*)arg[2]->p) = sin((*((int64_t*)arg[1]->p)));
 		}
 		else {
-			cerr << "Wrong types for `sin'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `sin'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`sin' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `sin' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -560,12 +560,12 @@ void builtin_cos(vector<shared_ptr<instr_t>>& arg) {
 			*((double*)arg[2]->p) = cos((*((int64_t*)arg[1]->p)));
 		}
 		else {
-			cerr << "Wrong types for `cos'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `cos'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`cos' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `cos' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -591,12 +591,12 @@ void builtin_tostring(vector<shared_ptr<instr_t>>& arg) {
 			arg[2]->p = arg[1]->p;
 		}
 		else {
-			cerr << "Wrong types for `tostring'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `tostring'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`tostring' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `tostring' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -616,12 +616,12 @@ void builtin_tonum(vector<shared_ptr<instr_t>>& arg) {
 			arg[2]->p = arg[1]->p;
 		}
 		else {
-			cerr << "Wrong types for `tonum'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `tonum'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`tonum' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `tonum' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -641,12 +641,12 @@ void builtin_tofloat(vector<shared_ptr<instr_t>>& arg) {
 			arg[2]->p = arg[1]->p;
 		}
 		else {
-			cerr << "Wrong types for `tofloat'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `tofloat'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`tofloat' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `tofloat' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -664,12 +664,12 @@ void builtin_tofunc(vector<shared_ptr<instr_t>>& arg) {
 			arg[2]->p = arg[1]->p;
 		}
 		else {
-			cerr << "Wrong types for `tofunc'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `tofunc'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`tofunc' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `tofunc' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -710,12 +710,12 @@ void builtin_replace(vector<shared_ptr<instr_t>>& arg) {
 			replace(*((string*)arg[4]->p),*((string*)arg[2]->p),*((string*)arg[3]->p));
 		}
 		else {
-			cerr << "Wrong types for `replace'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `replace'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`replace' needs exactly 4 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `replace' needs exactly 4 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -732,12 +732,12 @@ void builtin_tovar(vector<shared_ptr<instr_t>>& arg) {
 			memcpy(arg[2].get(),vars.top()[*((string*)arg[1]->p)].get(),sizeof(instr_t));
 		}
 		else {
-			cerr << "Wrong types for `tovar'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `tovar'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`tovar' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `tovar' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -749,7 +749,7 @@ void builtin_makelist(vector<shared_ptr<instr_t>>& arg) {
 		arg[1]->type = XLISTT;
 	}
 	else {
-		cerr << "`makelist' needs exactly 1 argument (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `makelist' needs exactly 1 argument (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -770,12 +770,12 @@ void builtin_list_add(vector<shared_ptr<instr_t>>& arg) {
 			((vlist*)arg[1]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(arg[2],arg[3]));
 		}
 		else {
-			cerr << "Wrong types for `list_add'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `list_add'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`list_add' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `list_add' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -805,7 +805,7 @@ void builtin_find(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `find'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `find'." << endl;
 			halt(28);
 		}
 
@@ -816,7 +816,7 @@ void builtin_find(vector<shared_ptr<instr_t>>& arg) {
 		}
 	}
 	else {
-		cerr << "`find' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `find' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -834,12 +834,12 @@ void builtin_length(vector<shared_ptr<instr_t>>& arg) {
 			arg[2]->type = XNUMT;
 		}
 		else {
-			cerr << "Wrong types for `length'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `length'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`length' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `length' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -862,7 +862,7 @@ void builtin_readstring(vector<shared_ptr<instr_t>>& arg) {
 		arg[2]->type = XNUMT;
 	}
 	else {
-		cerr << "`readstring' needs 1 or 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `readstring' needs 1 or 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -873,12 +873,12 @@ void builtin_export(vector<shared_ptr<instr_t>>& arg) {
 			declared_export[*((string*)arg[1]->p)] = arg[2];
 		}
 		else {
-			cerr << "Wrong types for `export'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `export'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`export' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `export' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -888,7 +888,7 @@ void builtin_export_clear(vector<shared_ptr<instr_t>>& arg) {
 		declared_export.clear();
 	}
 	else {
-		cerr << "`export_clear' needs exactly 0 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `export_clear' needs exactly 0 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -911,7 +911,7 @@ void builtin_type(vector<shared_ptr<instr_t>>& arg) {
 		}
 	}
 	else {
-		cerr << "`type' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `type' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -930,12 +930,12 @@ void builtin_push(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `push'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `push'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`push' needs at least 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `push' needs at least 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -962,7 +962,7 @@ void builtin_or(vector<shared_ptr<instr_t>>& arg) {
 		*((int64_t*)arg[arg.size()-1]->p) = (state) ? 1 : 0;
 	}
 	else {
-		cerr << "`or' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `or' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -989,7 +989,7 @@ void builtin_and(vector<shared_ptr<instr_t>>& arg) {
 		*((int64_t*)arg[arg.size()-1]->p) = (state) ? 1 : 0;
 	}
 	else {
-		cerr << "`and' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `and' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -1002,12 +1002,12 @@ void builtin_delete(vector<shared_ptr<instr_t>>& arg) {
 			if (it != ((vlist*)arg[1]->p)->end()) ((vlist*)arg[1]->p)->erase(it);
 		}
 		else {
-			cerr << "Wrong types for `delete'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `delete'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`delete' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `delete' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -1023,12 +1023,12 @@ void builtin_remove_keys(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `remove_keys'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `remove_keys'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`remove_keys' needs exactly 1 argument (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `remove_keys' needs exactly 1 argument (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -1037,7 +1037,7 @@ void builtin_curry(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() > 3) {
 		if (arg[1]->type == XFUNCT) {
 			//~ gc_handler(arg[arg.size()-1]);
-			uint64_t i = 0, ix = arg.size()-1;
+			int64_t i = 0, ix = arg.size()-1;
 			arg[ix]->p = new vlist;
 			arg[ix]->type = XLISTT;
 
@@ -1051,7 +1051,7 @@ void builtin_curry(vector<shared_ptr<instr_t>>& arg) {
 		}
 		else if (arg[1]->type == XLISTT) {
 			//~ gc_handler(arg[arg.size()-1]);
-			uint64_t i = 2, ix = arg.size()-1;
+			int64_t i = 2, ix = arg.size()-1;
 			arg[ix]->p = new vlist(*((vlist*)arg[1]->p));
 			arg[ix]->type = XLISTT;
 
@@ -1063,12 +1063,12 @@ void builtin_curry(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `curry'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `curry'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`curry' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `curry' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
@@ -1121,7 +1121,7 @@ void builtin_split(vector<shared_ptr<instr_t>>& arg) {
 			}
 			
 			if (sp <= 0) {
-				cerr << "split's second argument must be >= 1." << endl;
+				cerr << "Fatal, Aborting: split's second argument must be >= 1." << endl;
 				halt(32);
 			}
 			else {
@@ -1148,12 +1148,50 @@ void builtin_split(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 		else {
-			cerr << "Wrong types for `split'." << endl;
+			cerr << "Fatal, Aborting: Wrong types for `split'." << endl;
 			halt(28);
 		}
 	}
 	else {
-		cerr << "`split' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `split' needs exactly 3 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
+
+void builtin_readlines(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 2 || arg.size() == 3) {
+		if (arg.size() == 3) {
+			ifstream in(*((string*)(arg[1]->p)));
+
+			if (!in.good()) {
+				cerr << "Fatal, Aborting: `readlines' is unable to read the file '" << (*((string*)(arg[1]->p))) << "'." << endl;
+				halt(36);
+			}
+			
+			arg[2]->p = new vlist;
+			arg[2]->type = XLISTT;
+			string tmp;
+			int64_t i = 0;
+
+			while (getline(in,tmp)) {
+				((vlist*)arg[2]->p)->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new string(tmp),XSTRINGT)));
+				i++;
+			}
+		}
+		else {
+			arg[1]->p = new vlist;
+			arg[1]->type = XLISTT;
+			string tmp;
+			int64_t i = 0;
+
+			while (getline(cin,tmp)) {
+				((vlist*)arg[1]->p)->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new string(tmp),XSTRINGT)));
+				i++;
+			}
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `readlines' needs 1 or 2 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
