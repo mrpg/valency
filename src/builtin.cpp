@@ -1200,14 +1200,27 @@ void builtin_range(vector<shared_ptr<instr_t>>& arg) {
 		if (isnumeric(arg[1]->type) && isnumeric(arg[2]->type) && (arg.size() == 4 || isnumeric(arg[3]->type))) {
 			double a = getdouble(arg[1]), b = getdouble(arg[2]), step = (arg.size() == 5) ? getdouble(arg[3]) : 1.0;
 			int64_t i = 0;
+
+			if (step == 0 || (b-a)/step < 0) {
+				cerr << "Fatal, Aborting: Invalid arguments for `range'." << endl;
+				halt(28);
+			}
 			
 			arg[arg.size()-1]->p = new vlist;
 			arg[arg.size()-1]->type = XLISTT;
 			auto dest = (vlist*)(arg[arg.size()-1]->p);
 
-			for (; a <= b; a += step) {
-				dest->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new double(a),XFLOATT)));
-				i++;
+			if (b >= a) {
+				for (; a <= b; a += step) {
+					dest->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new double(a),XFLOATT)));
+					i++;
+				}
+			}
+			else {
+				for (; a >= b; a += step) {
+					dest->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new double(a),XFLOATT)));
+					i++;
+				}
 			}
 		}
 		else {
