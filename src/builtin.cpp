@@ -1110,15 +1110,8 @@ void builtin_split(vector<shared_ptr<instr_t>>& arg) {
 				((vlist*)arg[3]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new string(cur),XSTRINGT))));
 			}
 		}
-		else if (arg[1]->type == XSTRINGT && (arg[2]->type == XNUMT || arg[2]->type == XFLOATT)) {
-			int64_t sp;
-			
-			if (arg[2]->type == XFLOATT) {
-				sp = int64_t(*((double*)arg[2]->p));
-			}
-			else {
-				sp = *((int64_t*)arg[2]->p);
-			}
+		else if (arg[1]->type == XSTRINGT && isnumeric(arg[2]->type)) {
+			int64_t sp = getint(arg[2]);
 			
 			if (sp <= 0) {
 				cerr << "Fatal, Aborting: split's second argument must be >= 1." << endl;
@@ -1161,21 +1154,27 @@ void builtin_split(vector<shared_ptr<instr_t>>& arg) {
 void builtin_readlines(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 2 || arg.size() == 3) {
 		if (arg.size() == 3) {
-			ifstream in(*((string*)(arg[1]->p)));
+			if (arg[1]->type == XSTRINGT) {
+				ifstream in(*((string*)(arg[1]->p)));
 
-			if (!in.good()) {
-				cerr << "Fatal, Aborting: `readlines' is unable to read the file '" << (*((string*)(arg[1]->p))) << "'." << endl;
-				halt(36);
+				if (!in.good()) {
+					cerr << "Fatal, Aborting: `readlines' is unable to read the file '" << (*((string*)(arg[1]->p))) << "'." << endl;
+					halt(36);
+				}
+				
+				arg[2]->p = new vlist;
+				arg[2]->type = XLISTT;
+				string tmp;
+				int64_t i = 0;
+
+				while (getline(in,tmp)) {
+					((vlist*)arg[2]->p)->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new string(tmp),XSTRINGT)));
+					i++;
+				}
 			}
-			
-			arg[2]->p = new vlist;
-			arg[2]->type = XLISTT;
-			string tmp;
-			int64_t i = 0;
-
-			while (getline(in,tmp)) {
-				((vlist*)arg[2]->p)->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new string(tmp),XSTRINGT)));
-				i++;
+			else {
+				cerr << "Fatal, Aborting: Wrong types for `readlines'." << endl;
+				halt(28);
 			}
 		}
 		else {
@@ -1192,6 +1191,101 @@ void builtin_readlines(vector<shared_ptr<instr_t>>& arg) {
 	}
 	else {
 		cerr << "Fatal, Aborting: `readlines' needs 1 or 2 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
+
+void builtin_range(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 4 || arg.size() == 5) {
+		if (isnumeric(arg[1]->type) && isnumeric(arg[2]->type) && (arg.size() == 4 || isnumeric(arg[3]->type))) {
+			double a = getdouble(arg[1]), b = getdouble(arg[2]), step = (arg.size() == 5) ? getdouble(arg[3]) : 1.0;
+			int64_t i = 0;
+			
+			arg[arg.size()-1]->p = new vlist;
+			arg[arg.size()-1]->type = XLISTT;
+			auto dest = (vlist*)(arg[arg.size()-1]->p);
+
+			for (; a <= b; a += step) {
+				dest->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new double(a),XFLOATT)));
+				i++;
+			}
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `range'." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `range' needs 3 or 4 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
+
+void builtin_sum(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 3) {
+		// sum list &res
+		if (arg[1]->type == XLISTT) {
+			double sum = 0;
+
+			for (auto& cur: *((vlist*)(arg[1]->p))) {
+				if (isnumeric(cur.second->type)) {
+					sum += getdouble(cur.second);
+				}
+				else {
+					cerr << "Fatal, Aborting: Wrong types in list, must be numeric." << endl;
+					halt(24);
+				}
+			}
+
+			arg[2]->type = XFLOATT;
+			arg[2]->p = new double(sum);
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `sum'." << endl;
+			halt(28);
+		}
+	}
+	else if (arg.size() == 4) {
+		// sum f range &res
+		if (arg[2]->type == XLISTT) {
+			if (arg[1]->type == XFUNCT || arg[1]->type == XLISTT) {
+				double sum = 0;
+				vector<shared_ptr<instr_t>> stack;
+				shared_ptr<instr_t> p(new instr_t());
+
+				for (auto& cur: *((vlist*)(arg[2]->p))) {
+					stack.push_back(arg[1]);
+					stack.push_back(cur.second);
+					stack.push_back(p);
+
+					call(stack);
+
+					if (isnumeric(p->type)) {
+						sum += getdouble(p);
+					}
+					else {
+						cerr << "Fatal, Aborting: Wrong types; callable function did not return numeric value." << endl;
+						halt(22);
+					}
+
+					stack.clear();
+				}
+
+				arg[3]->type = XFLOATT;
+				arg[3]->p = new double(sum);
+			}
+			else {
+				cerr << "Fatal, Aborting: Wrong types for `sum', must be a function." << endl;
+				halt(28);
+			}
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `sum'." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `sum' needs 2 or 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }

@@ -58,6 +58,10 @@ inline int64_t getint(shared_ptr<instr_t>& x) {
 	}
 }
 
+inline bool isnumeric(const var_type& a) {
+	return (a == XNUMT || a == XFLOATT);
+}
+
 inline var_type biggest_range(vector<shared_ptr<instr_t>>& arg) {
 	size_t i = 0, m = arg.size()-1;
 	var_type r = XNULLT;

@@ -421,6 +421,7 @@ void register_builtin() {
 	reg(pow); alias(^,pow);
 	reg(print);
 	reg(push);
+	reg(range);
 	reg(readlines);
 	reg(readstring);
 	reg(remove_keys);
@@ -429,6 +430,7 @@ void register_builtin() {
 	reg(sin);
 	reg(split);
 	reg(sub); alias(-,sub);
+	reg(sum);
 	reg(tofloat);
 	reg(tofunc);
 	reg(tonum);

@@ -1,0 +1,10 @@
+set &f {
+	^ #1 2 &#2
+}
+
+curry ^ .. 2 &g
+
+print (sum f (range 0 100))
+print (sum g (range 0 100))
+
+-- Both return 338350 because f and g are in fact equivalent.

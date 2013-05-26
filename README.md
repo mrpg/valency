@@ -252,6 +252,20 @@ If _file_ is given, this entire file will be read into _&result_, a list of line
 
 See examples/for\_each\_file.txt.
 
+> range from to [step] &result
+
+Create a list consisting of numeric elements starting from _from_ and ending by no greater than _to_. If _step_ is given, this will be the incremental value between the elements; if it is not given, we will use 1.
+
+See examples/range.txt.
+
+> sum [f] list &result
+
+If _f_ is given: For every element in _list_, call _f_ with the current element as its first argument. Sum up the results and store the result in _result_. The function prototype for _f_ must be: _f x &result_.
+
+If _f_ is not given: Sum up the elements in _list_ and store the result in _result_.
+
+See examples/sum.txt.
+
 ### Notation
 
 One line consists of this scheme:
