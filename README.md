@@ -246,6 +246,12 @@ If _delimiter_ is a number, _str_ will be cut in substrings and converted to a l
 
 See examples/split.txt.
 
+> readlines [file] &result
+
+If _file_ is given, this entire file will be read into _&result_, a list of line strings. If the file argument is not given, standard input will be read into a list of line strings.
+
+See examples/for\_each\_file.txt.
+
 ### Notation
 
 One line consists of this scheme:

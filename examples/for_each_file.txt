@@ -1,0 +1,5 @@
+for_each (readlines "for_each.txt") &key &val {
+	if (not (is (length val) 0)) {
+		print (find (split val " ") 0)
+	}
+}
