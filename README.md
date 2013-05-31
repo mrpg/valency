@@ -116,6 +116,16 @@ If a < b, _&result_ will be non-zero. If not, _&result_ will be 0.
 
 If a <= b, _&result_ will be non-zero. If not, _&result_ will be 0.
 
+> gamma x &result
+
+Apply gamma function (tgamma in C++) to x and store the result in _&result_.
+
+> factorial x &result
+
+> **Alias**: ! x &result
+
+Calculate factorial of x and store the result in _&result_.
+
 > while &cond func
 
 While _&cond_ is non-zero, _func_ is executed. Note that _&cond_ **must always**
