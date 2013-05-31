@@ -124,6 +124,40 @@ void builtin_mul(vector<shared_ptr<instr_t>>& arg) {
 	}
 }
 
+void builtin_gamma(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 3) {
+		if (isnumeric(arg[1]->type)) {
+			arg[2]->type = XFLOATT;
+			arg[2]->p = new double(tgamma(getdouble(arg[1])));
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `gamma'." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `gamma' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
+
+void builtin_factorial(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 3) {
+		if (isnumeric(arg[1]->type)) {
+			arg[2]->type = XFLOATT;
+			arg[2]->p = new double(tgamma(getdouble(arg[1])+1.0));
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `factorial'." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `factorial' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
+
 void builtin_add(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() >= 4) {
 		size_t m = arg.size()-1;

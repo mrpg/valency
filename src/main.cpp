@@ -402,8 +402,10 @@ void register_builtin() {
 	reg(exit);
 	reg(export);
 	reg(export_clear);
+	reg(factorial); alias(!,factorial);
 	reg(find);
 	reg(for_each);
+	reg(gamma);
 	reg(gt); alias(>,gt);
 	reg(gte); alias(>=,gte);
 	reg(if);
