@@ -1,0 +1,9 @@
+set &func {
+	-> "#1" "a"
+	-> "#2" "b"
+	-> "#3" "result"
+
+	* a b 1.2 &result
+}
+
+print (func 5 4)

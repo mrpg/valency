@@ -417,6 +417,7 @@ void register_builtin() {
 	reg(lte); alias(<=,lte);
 	reg(makelist);
 	reg(mod); alias(%,mod);
+	reg(move); alias(->,move);
 	reg(mul); alias(*,mul);
 	reg(not);
 	reg(or); alias(||,or);

@@ -276,6 +276,16 @@ If _f_ is not given: Sum up the elements in _list_ and store the result in _resu
 
 See examples/sum.txt.
 
+> move from to
+
+> **Alias**: -> from to
+
+Move the variable with the name _from_ to _to_. _from_ and _to_ must be strings. The variable _from_ will be deleted from the current scope.
+
+_move_ provides a very simple, convenient and efficient way to give readable names to function arguments.
+
+See examples/move.txt.
+
 ### Notation
 
 One line consists of this scheme:

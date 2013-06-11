@@ -1302,3 +1302,26 @@ void builtin_sum(vector<shared_ptr<instr_t>>& arg) {
 		halt(34);
 	}
 }
+
+void builtin_move(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 3) {
+		if (arg[1]->type == XSTRINGT && arg[2]->type == XSTRINGT) {
+			if (vars.top().find(*((string*)(arg[1]->p))) != vars.top().end()) {
+				vars.top()[*((string*)(arg[2]->p))] = vars.top()[*((string*)(arg[1]->p))];
+				vars.top().erase(*((string*)(arg[1]->p)));
+			}
+			else {
+				cerr << "Fatal, Aborting: move: Argument 1 must already exist." << endl;
+				halt(28);
+			}
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `move'." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `move' needs exactly 2 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
