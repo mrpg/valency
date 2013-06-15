@@ -1184,7 +1184,7 @@ void builtin_readlines(vector<shared_ptr<instr_t>>& arg) {
 			int64_t i = 0;
 
 			while (getline(cin,tmp)) {
-				((vlist*)arg[1]->p)->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new string(tmp),XSTRINGT)));
+				((vlist*)arg[1]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new string(tmp),XSTRINGT))));
 				i++;
 			}
 		}
@@ -1212,13 +1212,13 @@ void builtin_range(vector<shared_ptr<instr_t>>& arg) {
 
 			if (b >= a) {
 				for (; a <= b; a += step) {
-					dest->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new double(a),XFLOATT)));
+					dest->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new double(a),XFLOATT))));
 					i++;
 				}
 			}
 			else {
 				for (; a >= b; a += step) {
-					dest->push_back(pair<instr_t*,instr_t*>(get(new int64_t(i),XNUMT),get(new double(a),XFLOATT)));
+					dest->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(i),XNUMT)),shared_ptr<instr_t>(get(new double(a),XFLOATT))));
 					i++;
 				}
 			}
