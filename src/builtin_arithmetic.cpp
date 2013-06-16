@@ -144,8 +144,16 @@ void builtin_gamma(vector<shared_ptr<instr_t>>& arg) {
 void builtin_factorial(vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
 		if (isnumeric(arg[1]->type)) {
+			int64_t x = getint(arg[1]);
+			double r = 1;
+
+			while (x > 0) {
+				r *= x;
+				x--;
+			}
+
 			arg[2]->type = XFLOATT;
-			arg[2]->p = new double(tgamma(getdouble(arg[1])+1.0));
+			arg[2]->p = new double(r);
 		}
 		else {
 			cerr << "Fatal, Aborting: Wrong types for `factorial'." << endl;
