@@ -405,6 +405,8 @@ void register_builtin() {
 	reg(factorial); alias(!,factorial);
 	reg(find);
 	reg(for_each);
+	reg(for_each_key);
+	reg(for_each_value);
 	reg(gamma);
 	reg(gt); alias(>,gt);
 	reg(gte); alias(>=,gte);

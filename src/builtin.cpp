@@ -84,23 +84,20 @@ void builtin_exit(vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_while (vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		if (arg[2]->type == XFUNCT) {
-			istringstream fstr(((func_t*)arg[2]->p)->user);
-			vector<vector<string>> lines;
-			vector<shared_ptr<instr_t>> instr;
+		if (arg[2]->type == XFUNCT || arg[2]->type == XLISTT) {
+			vector<shared_ptr<instr_t>> stack;
 
-			parse(fstr, lines);
-
-			while (checkcond(arg[1]) && !program_break && !function_return) {
-				instr.clear();
-				
-				for (auto& ci: lines) {
-					transform(ci, instr);
-					call(instr);
-				}
+			if (arg[2]->type == XFUNCT) {
+				((func_t*)arg[2]->p)->inCurrentNamespace = true;
 			}
 
-			program_break = false;
+			while (checkcond(arg[1])) {
+				stack.push_back(arg[2]);
+				
+				call(stack);
+
+				stack.clear();
+			}
 		}
 		else {
 			cerr << "Fatal, Aborting: Wrong types for `while'." << endl;
@@ -115,79 +112,184 @@ void builtin_while (vector<shared_ptr<instr_t>>& arg) {
 
 void builtin_for_each (vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 5) {
-		if (arg[1]->type == XLISTT && arg[2]->type == XSTRINGT && arg[3]->type == XSTRINGT && arg[4]->type == XFUNCT) {
-			istringstream fstr(((func_t*)arg[4]->p)->user);
-			vector<vector<string>> lines;
-			vector<shared_ptr<instr_t>> instr;
+		if (arg[1]->type == XLISTT && (arg[4]->type == XFUNCT || arg[4]->type == XLISTT)) {
+			vector<shared_ptr<instr_t>> stack;
 
-			parse(fstr, lines);
-
-			for (auto& cur: *((vlist*)arg[1]->p)) {
-				if (program_break || function_return) break;
-
-				vars.top()[*((string*)arg[2]->p)] = cur.first;
-				vars.top()[*((string*)arg[3]->p)] = cur.second;
-				
-				instr.clear();
-				
-				for (auto& ci: lines) {
-					transform(ci, instr);
-					call(instr);
-				}
+			if (arg[4]->type == XFUNCT) {
+				((func_t*)arg[4]->p)->inCurrentNamespace = true;
 			}
 
-			program_break = false;
-		}
-		else if (arg[1]->type == XLISTT && arg[4]->type == XFUNCT) {
-			istringstream fstr(((func_t*)arg[4]->p)->user);
-			vector<vector<string>> lines;
-			vector<shared_ptr<instr_t>> instr;
-
-			parse(fstr, lines);
-
-			for (auto& cur: *((vlist*)arg[1]->p)) {
-				if (program_break || function_return) break;
+			for (auto& cur: *((vlist*)(arg[1]->p))) {
+				stack.push_back(arg[4]);
 
 				arg[2]->p = cur.first->p;
 				arg[2]->type = cur.first->type;
 				arg[3]->p = cur.second->p;
 				arg[3]->type = cur.second->type;
-				
-				instr.clear();
-				
-				for (auto& ci: lines) {
-					transform(ci, instr);
-					call(instr);
-				}
-			}
 
-			program_break = false;
+				call(stack);
+
+				stack.clear();
+			}
 		}
 		else {
 			cerr << "Fatal, Aborting: Wrong types for `for_each'." << endl;
 			halt(28);
 		}
 	}
+	else if (arg.size() == 3) {
+		// for_each list f
+		if (arg[1]->type == XLISTT && (arg[2]->type == XFUNCT || arg[2]->type == XLISTT)) {
+			vector<shared_ptr<instr_t>> stack;
+
+			if (arg[2]->type == XFUNCT) {
+				((func_t*)arg[2]->p)->inCurrentNamespace = true;
+			}
+
+			for (auto& cur: *((vlist*)(arg[1]->p))) {
+				stack.push_back(arg[2]);
+				stack.push_back(cur.first);
+				stack.push_back(cur.second);
+
+				call(stack);
+
+				stack.clear();
+			}
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `for_each', must be a list and a function." << endl;
+			halt(28);
+		}
+	}
 	else {
-		cerr << "Fatal, Aborting: `for_each' needs exactly 4 arguments (" << arg.size()-1 << " given)." << endl;
+		cerr << "Fatal, Aborting: `for_each' needs 2 or 4 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
+
+void builtin_for_each_key (vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 4) {
+		if (arg[1]->type == XLISTT && (arg[3]->type == XFUNCT || arg[3]->type == XLISTT)) {
+			vector<shared_ptr<instr_t>> stack;
+
+			if (arg[3]->type == XFUNCT) {
+				((func_t*)arg[3]->p)->inCurrentNamespace = true;
+			}
+
+			for (auto& cur: *((vlist*)(arg[1]->p))) {
+				stack.push_back(arg[3]);
+
+				arg[2]->p = cur.first->p;
+				arg[2]->type = cur.first->type;
+
+				call(stack);
+
+				stack.clear();
+			}
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `for_each'." << endl;
+			halt(28);
+		}
+	}
+	else if (arg.size() == 3) {
+		// for_each list f
+		if (arg[1]->type == XLISTT && (arg[2]->type == XFUNCT || arg[2]->type == XLISTT)) {
+			vector<shared_ptr<instr_t>> stack;
+
+			if (arg[2]->type == XFUNCT) {
+				((func_t*)arg[2]->p)->inCurrentNamespace = true;
+			}
+
+			for (auto& cur: *((vlist*)(arg[1]->p))) {
+				stack.push_back(arg[2]);
+				stack.push_back(cur.first);
+
+				call(stack);
+
+				stack.clear();
+			}
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `for_each_key', must be a list and a function." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `for_each_key' needs 2 or 3 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
+
+void builtin_for_each_value (vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 4) {
+		if (arg[1]->type == XLISTT && (arg[3]->type == XFUNCT || arg[3]->type == XLISTT)) {
+			vector<shared_ptr<instr_t>> stack;
+
+			if (arg[3]->type == XFUNCT) {
+				((func_t*)arg[3]->p)->inCurrentNamespace = true;
+			}
+
+			for (auto& cur: *((vlist*)(arg[1]->p))) {
+				stack.push_back(arg[3]);
+
+				arg[2]->p = cur.second->p;
+				arg[2]->type = cur.second->type;
+
+				call(stack);
+
+				stack.clear();
+			}
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `for_each'." << endl;
+			halt(28);
+		}
+	}
+	else if (arg.size() == 3) {
+		// for_each list f
+		if (arg[1]->type == XLISTT && (arg[2]->type == XFUNCT || arg[2]->type == XLISTT)) {
+			vector<shared_ptr<instr_t>> stack;
+
+			if (arg[2]->type == XFUNCT) {
+				((func_t*)arg[2]->p)->inCurrentNamespace = true;
+			}
+
+			for (auto& cur: *((vlist*)(arg[1]->p))) {
+				stack.push_back(arg[2]);
+				stack.push_back(cur.second);
+
+				call(stack);
+
+				stack.clear();
+			}
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `for_each_value', must be a list and a function." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `for_each_value' needs 2 or 3 arguments (" << arg.size()-1 << " given)." << endl;
 		halt(34);
 	}
 }
 
 void builtin_if (vector<shared_ptr<instr_t>>& arg) {
 	if (arg.size() == 3) {
-		if (arg[2]->type == XFUNCT) {
+		if (arg[2]->type == XFUNCT || arg[2]->type == XLISTT) {
 			if (checkcond(arg[1])) {
-				istringstream fstr(((func_t*)arg[2]->p)->user);
-				vector<vector<string>> lines;
-				vector<shared_ptr<instr_t>> instr;
+				vector<shared_ptr<instr_t>> stack;
 
-				parse(fstr, lines);
-				
-				for (auto& ci: lines) {
-					transform(ci, instr);
-					call(instr);
+				if (arg[2]->type == XFUNCT) {
+					((func_t*)arg[2]->p)->inCurrentNamespace = true;
 				}
+
+				stack.push_back(arg[2]);
+				
+				call(stack);
+
+				stack.clear();
 			}
 		}
 		else {
@@ -196,30 +298,32 @@ void builtin_if (vector<shared_ptr<instr_t>>& arg) {
 		}
 	}
 	else if (arg.size() == 4) {
-		if (arg[2]->type == XFUNCT && arg[3]->type == XFUNCT) {
+		if ((arg[2]->type == XFUNCT || arg[2]->type == XLISTT) && (arg[3]->type == XFUNCT || arg[3]->type == XLISTT)) {
 			if (checkcond(arg[1])) {
-				istringstream fstr(((func_t*)arg[2]->p)->user);
-				vector<vector<string>> lines;
-				vector<shared_ptr<instr_t>> instr;
+				vector<shared_ptr<instr_t>> stack;
 
-				parse(fstr, lines);
-				
-				for (auto& ci: lines) {
-					transform(ci, instr);
-					call(instr);
+				if (arg[2]->type == XFUNCT) {
+					((func_t*)arg[2]->p)->inCurrentNamespace = true;
 				}
+
+				stack.push_back(arg[2]);
+				
+				call(stack);
+
+				stack.clear();
 			}
 			else {
-				istringstream fstr(((func_t*)arg[3]->p)->user);
-				vector<vector<string>> lines;
-				vector<shared_ptr<instr_t>> instr;
+				vector<shared_ptr<instr_t>> stack;
 
-				parse(fstr, lines);
-				
-				for (auto& ci: lines) {
-					transform(ci, instr);
-					call(instr);
+				if (arg[3]->type == XFUNCT) {
+					((func_t*)arg[3]->p)->inCurrentNamespace = true;
 				}
+
+				stack.push_back(arg[3]);
+				
+				call(stack);
+
+				stack.clear();
 			}
 		}
 		else {

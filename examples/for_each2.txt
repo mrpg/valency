@@ -1,0 +1,12 @@
+makelist &li
+
+range 1 10 &li
+
+set &fc 1
+
+for_each &li {
+	* fc #2 &fc
+	print "Element " #1 " processed..."
+}
+
+print fc

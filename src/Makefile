@@ -7,8 +7,7 @@ BINDIR = /usr/bin
 all: valency
 
 clean:
-		rm -f valency
-		rm -f *.o
+		rm -f ../bin/valency
 
 valency: builtin_arithmetic.cpp builtin.cpp chrono.cpp functions.hpp generic.cpp interactive.cpp main.cpp types.hpp
 		$(CXX) $(CXXFLAGS) main.cpp -o ../bin/valency

@@ -131,13 +131,35 @@ Calculate factorial of x and store the result in _&result_.
 While _&cond_ is non-zero, _func_ is executed. Note that _&cond_ **must always**
 be a reference.
 
-> for\_each list keyname valname func
+> for\_each list &key &val func
 
-Iterate over _list_, current key will be written to a variable with the name _keyname_ and
-current value will be written to a variable with the name _valname_. _func_ is executed (in the current namespace).
-_keyname_ and _valname_ must be strings.
+> for\_each list func
 
-_keyname_ and _valname_ can also be references. See example.
+Prototype 1: Iterate over _list_, current key will be written to the variable referenced by _&key_ and
+current value will be written to the variable referenced by _&val_. _func_ is executed (in the current namespace).
+
+See example.
+
+Prototype 2: Iterate over _list_, execute _func_ with the current key as the first function argument and the current
+value as the second function argument.
+
+> for\_each\_value list &val func
+
+> for\_each\_value list func
+
+Prototype 1: Iterate over _list_, current value will be written to the variable referenced by _&val_.
+Current key will be left out. _func_ is executed (in the current namespace).
+
+Prototype 2: Iterate over _list_, execute _func_ with the current value as the first function argument.
+
+> for\_each\_key list &val func
+
+> for\_each\_key list func
+
+Prototype 1: Iterate over _list_, current key will be written to the variable referenced by _&key_.
+Current value will be left out. _func_ is executed (in the current namespace).
+
+Prototype 2: Iterate over _list_, execute _func_ with the current key as the first function argument. 
 
 > if cond func [else]
 

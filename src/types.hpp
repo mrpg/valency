@@ -49,7 +49,7 @@ class func_t {
 
 		string user;
 		builtin b;
-		bool built;
+		bool built, inCurrentNamespace;
 		unique_ptr<unordered_map<string,shared_ptr<instr_t>>> exported;
 };
 

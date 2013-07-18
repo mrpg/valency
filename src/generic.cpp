@@ -125,7 +125,7 @@ shared_ptr<instr_t> instr_t::copy() {
 }
 
 func_t::func_t() {
-	built = false;
+	built = inCurrentNamespace = false;
 	user = "";
 
 	if (!declared_export.empty()) {
@@ -135,7 +135,7 @@ func_t::func_t() {
 }
 
 func_t::func_t(const string& str) {
-	built = false;
+	built = inCurrentNamespace = false;
 	user = str;
 	if (user.front() == '{') {
 		user.erase(0,1);
@@ -153,6 +153,7 @@ func_t::func_t(const string& str) {
 
 func_t::func_t(builtin f) {
 	built = true;
+	inCurrentNamespace = false;
 	b = f;
 }
 
@@ -161,19 +162,21 @@ void func_t::operator()(vector<shared_ptr<instr_t>>& arg) {
 		b(arg);
 	}
 	else {
-		unordered_map<string,shared_ptr<instr_t>> nvar;
+		if (!inCurrentNamespace) {
+			unordered_map<string,shared_ptr<instr_t>> nvar;
 
-		for (auto& v: vars.top()) {
-			if ((v.second)->type == 4) {
-				nvar.insert(v);
+			for (auto& v: vars.top()) {
+				if ((v.second)->type == 4) {
+					nvar.insert(v);
+				}
 			}
-		}
 
-		if (exported) {
-			nvar.insert(exported->begin(),exported->end());
+			if (exported) {
+				nvar.insert(exported->begin(),exported->end());
+			}
+			
+			vars.push(nvar);
 		}
-		
-		vars.push(nvar);
 
 		unsigned i = 0;
 		vector<vector<string>> lines;
@@ -206,7 +209,7 @@ void func_t::operator()(vector<shared_ptr<instr_t>>& arg) {
 			}
 		}
 
-		vars.pop();
+		if (!inCurrentNamespace) vars.pop();
 	}
 }
 
