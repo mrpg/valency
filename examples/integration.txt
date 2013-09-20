@@ -11,13 +11,11 @@ set &simpson {
 	f (/ (+ a h) 2) &sum1
 	set &sum2 0
 	set &i 1
-	set &cond (<= i (- n 1))
 
-	while &cond {
+	while {<= i (- n 1) &#1} {
 		+ sum1 (f (+ a (* h i) (/ h 2))) &sum1
 		+ sum2 (f (+ a (* h i))) &sum2
 		+ i 1 &i
-		set &cond (<= i (- n 1))
 	}
 
 	* (/ h 6) (+ (f a) (f b) (* 4 sum1) (* 2 sum2)) &#5

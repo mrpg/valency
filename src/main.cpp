@@ -223,6 +223,21 @@ inline bool checkcond(shared_ptr<instr_t> a) {
 	else if (a->type == XSTRINGT) {
 		return !(((string*)a->p)->empty());
 	}
+	else if (a->type == XFUNCT || a->type == XLISTT) {
+		vector<shared_ptr<instr_t>> stack;
+		shared_ptr<instr_t> p(new instr_t());
+
+		if (a->type == XFUNCT) {
+			((func_t*)a->p)->inCurrentNamespace = true;
+		}
+
+		stack.push_back(a);
+		stack.push_back(p);
+
+		call(stack);
+
+		return checkcond(p);
+	}
 	else {
 		return (a->type != XNULLT);
 	}

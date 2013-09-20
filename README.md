@@ -128,8 +128,13 @@ Calculate factorial of x and store the result in _&result_.
 
 > while &cond func
 
-While _&cond_ is non-zero, _func_ is executed. Note that _&cond_ **must always**
+> while f func
+
+Prototype 1: While _&cond_ is non-zero, _func_ is executed. Note that _&cond_ **must always**
 be a reference.
+
+Prototype 2: While _f_ 'return's any non-zero value, _func_ is executed. See examples/mean.txt
+and examples/integration.txt.
 
 > for\_each list &key &val func
 

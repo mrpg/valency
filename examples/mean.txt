@@ -1,11 +1,7 @@
-set &sum 0
-set &n 0
-set &cond (readstring &word)
+makelist &li
 
-while &cond {
-	+ sum (tofloat word) &sum
-	+ n 1 &n
-	set &cond (readstring &word)
+while {readstring &word &#1} {
+	push &li (tofloat word)
 }
 
-print "mean = " (/ sum n)
+print "mean = " (/ (sum li) (length li))
