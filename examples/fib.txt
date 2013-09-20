@@ -7,7 +7,7 @@ set &fib {
 set &n 26
 
 while &n {
-fib n &r
-print n "\t" &r
-- n 1 &n
+	fib n &r
+	print n "\t" &r
+	- n 1 &n
 }
