@@ -412,6 +412,7 @@ void register_builtin() {
 	reg(and); alias(&&,and);
 	reg(cos);
 	reg(curry);
+	reg(do);
 	reg(delete);
 	reg(div); alias(/,div);
 	reg(exit);

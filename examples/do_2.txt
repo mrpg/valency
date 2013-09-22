@@ -1,0 +1,14 @@
+set &call {
+	#1
+}
+
+makelist &li
+
+push &li (curry print 1)
+push &li (curry print 2)
+push &li (curry print 3)
+push &li (curry print 4)
+push &li (curry print 5)
+
+do call li &out
+# out is being ignored. It contains null values.

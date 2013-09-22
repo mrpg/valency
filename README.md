@@ -313,6 +313,19 @@ _move_ provides a very simple, convenient and efficient way to give readable nam
 
 See examples/move.txt.
 
+> do f list [list...] &result
+
+For every element of the first list, calls _f_ with the first argument being the current element of the first list.
+If more than 1 list is supplied, appends the current elements of the other lists to the argument list of the current
+_f_ function call. Calls _f_ with an additional result argument, stores the result in the _result_ list and goes to
+the next element in each list.
+
+All supplied lists must have the same size (i.e. length).
+
+You can perform very efficient and simple vector and matrix calculations with this function.
+
+See examples/do\_1.txt and examples/do\_2.txt.
+
 ### Notation
 
 One line consists of this scheme:

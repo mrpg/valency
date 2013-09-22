@@ -1429,3 +1429,75 @@ void builtin_move(vector<shared_ptr<instr_t>>& arg) {
 		halt(34);
 	}
 }
+
+void builtin_do(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() == 4) {
+		if ((arg[1]->type == XFUNCT || arg[1]->type == XLISTT) && arg[2]->type == XLISTT) {
+			vector<shared_ptr<instr_t>> stack;
+			arg[3]->p = new vlist;
+			arg[3]->type = XLISTT;
+
+			for (auto& cur: *((vlist*)(arg[2]->p))) {
+				shared_ptr<instr_t> curp(new instr_t());
+				
+				stack.push_back(arg[1]);
+				stack.push_back(cur.second);
+				stack.push_back(curp);
+
+				call(stack);
+
+				((vlist*)arg[3]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(((vlist*)arg[3]->p)->size()),XNUMT)),curp));
+
+				stack.clear();
+			}
+		}
+	}
+	else if (arg.size() > 4) {
+		if (arg[1]->type == XFUNCT || arg[1]->type == XLISTT) {
+			for (unsigned i = 2; i < arg.size()-1; i++) {
+				if (arg[i]->type != XLISTT) {
+					cerr << "Fatal, Aborting: Wrong types for `do'." << endl;
+					halt(28);
+				}
+			}
+			
+			for (unsigned i = 3; i < arg.size()-1; i++) {
+				if (((vlist*)arg[i]->p)->size() != ((vlist*)arg[2]->p)->size()) {
+					cerr << "Fatal, Aborting: All lists must have same length [do]." << endl;
+					halt(28);
+				}
+			}
+
+			vector<shared_ptr<instr_t>> stack;
+			auto dest = arg[arg.size()-1];
+			dest->p = new vlist;
+			dest->type = XLISTT;
+
+			for (unsigned y = 0; y < ((vlist*)arg[2]->p)->size(); y++) {
+				shared_ptr<instr_t> curp(new instr_t());
+				
+				stack.push_back(arg[1]);
+				
+				for (unsigned x = 2; x < arg.size()-1; x++) {
+					stack.push_back((*(((vlist*)(arg[x]->p))))[y].second);
+				}
+			
+				stack.push_back(curp);
+
+				call(stack);
+
+				((vlist*)dest->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(shared_ptr<instr_t>(get(new int64_t(((vlist*)dest->p)->size()),XNUMT)),curp));
+
+				stack.clear();
+			}
+		}
+		else {
+			cerr << "Fatal, Aborting: Wrong types for `do'." << endl;
+			halt(28);
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `do' needs at least 3 arguments (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}
