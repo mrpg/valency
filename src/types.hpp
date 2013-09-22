@@ -1,4 +1,4 @@
-/* Valency 0.1
+/* Valency 0.2
  * 2012, Max R. P. Grossmann
  *
  * This program is free software. It comes without any warranty, to

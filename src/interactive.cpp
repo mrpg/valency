@@ -1,4 +1,4 @@
-/* Valency 0.1
+/* Valency 0.2
  * 2012, Max R. P. Grossmann
  *
  * This program is free software. It comes without any warranty, to
@@ -8,7 +8,7 @@
  * http://sam.zoy.org/wtfpl/COPYING for more details. */
 
 void interactive_mode() {
-	cout << "Valency 0.1 [" << __DATE__ << ' ' << __TIME__ << "]\n\n";
+	cout << "Valency 0.2 [" << __DATE__ << ' ' << __TIME__ << "]\n\n";
 	cout << "This program is free software. It comes without any warranty, to\n";
 	cout << "the extent permitted by applicable law. You can redistribute it\n";
 	cout << "and/or modify it under the terms of the Do What The Fuck You Want\n";
