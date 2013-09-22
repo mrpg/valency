@@ -1,0 +1,7 @@
+makelist &li
+
+while (curry readstring &word ..) {
+        push &li (tofloat word)
+}
+
+print "mean = " (/ (sum li) (length li))
