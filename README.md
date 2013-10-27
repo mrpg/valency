@@ -330,7 +330,9 @@ See examples/do\_1.txt and examples/do\_2.txt.
 
 One line consists of this scheme:
 
-> [function call] [arg1] [arg2] [...] {&result}
+> [function] [arg1] [arg2] [...] {&result}
+
+The actual scheme depends on the function.
 
 #### Integer notation
 
@@ -356,6 +358,14 @@ The ASCII character 0x09 (TAB) can be escaped with \t.
 The ASCII character 0x0A (LF) can be escaped with \n.
 The ASCII character 0x0D (CR) can be escaped with \r.
 The ASCII character 0x22 (") can be escaped with \".
+
+#### List notation
+
+You can create an anonymous list by calling the function "list" in a subexpression.
+
+See examples/list.txt and its output. The syntax is quite obvious:
+
+> list [el1]... &result
 
 ### Subexpressions
 
