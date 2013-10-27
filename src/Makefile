@@ -1,6 +1,6 @@
-CXX = g++
+CXX = clang++
 LD = ld
-CXXFLAGS = -Wall -O3 -s -std=gnu++0x
+CXXFLAGS = -Wall -O3 -s -std=gnu++0x -D__STRICT_ANSI__
 INSTALL_PROGRAM = install
 BINDIR = /usr/bin
 
