@@ -1501,3 +1501,24 @@ void builtin_do(vector<shared_ptr<instr_t>>& arg) {
 		halt(34);
 	}
 }
+
+void builtin_list(vector<shared_ptr<instr_t>>& arg) {
+	if (arg.size() >= 2) {
+		size_t i = 0, max = arg.size()-1;
+
+		arg[max]->p = new vlist;
+		arg[max]->type = XLISTT;
+		
+		for (auto& cur: arg) {
+			if (i >= 1 && i != max) {
+				shared_ptr<instr_t> index_instr(get(new int64_t(((vlist*)arg[max]->p)->size()),XNUMT));
+				((vlist*)arg[max]->p)->push_back(pair<shared_ptr<instr_t>,shared_ptr<instr_t>>(index_instr,cur));
+			}
+			i++;
+		}
+	}
+	else {
+		cerr << "Fatal, Aborting: `list' needs at least 1 argument (" << arg.size()-1 << " given)." << endl;
+		halt(34);
+	}
+}

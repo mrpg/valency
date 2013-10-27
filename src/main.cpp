@@ -14,6 +14,7 @@
 #include <string>
 #include <algorithm>
 #include <cmath>
+#include "util.cpp"
 #include "generic.cpp"
 #include "builtin_arithmetic.cpp"
 #include "builtin.cpp"
@@ -170,6 +171,16 @@ void parse(Stream& stream, vector<vector<string>>& lines) {
 
 	while ((it = find_if (lines.begin(),lines.end(),emptyveccond)) != lines.end()) {
 		lines.erase(it);
+	}
+
+	string chl = "\x0009\x000A\x000B\x000C\x000D\x0020\x0085";
+	chl.push_back(EOF);
+	sort(chl.begin(),chl.end());
+
+	for (vector<string>& outer: lines) {
+		for (string& ctok: outer) {
+			trimhere(ctok,chl);
+		}
 	}
 }
 
@@ -429,6 +440,7 @@ void register_builtin() {
 	reg(if);
 	reg(is); alias(==,is);
 	reg(length);
+	reg(list);
 	reg(list_add);
 	reg(log); alias(ln,log);
 	reg(lt); alias(<,lt);

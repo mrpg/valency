@@ -1,0 +1,1 @@
+print (list 5 (list (+ "te" "st")) 4.2)
