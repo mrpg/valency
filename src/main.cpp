@@ -64,6 +64,21 @@ char escape(char c) {
 
 template <class Stream>
 void parse(Stream& stream, vector<vector<string>>& lines) {
+/*
+ * DISCLAIMER
+ * ----------
+ *
+ *   I must apologize for the parser code. This is probably
+ * the worst piece of code I've ever written, but published
+ * anyway. It works in most cases, if not, the parser is
+ * always to blame. Please do not be deterred by this code,
+ * the rest of my Valency interpreter is much better. The
+ * code for the parser will be replaced in the future.
+ * The parser has ugly, slow, repeating and bad-style code
+ * that might also be mathematically wrong.
+ *   I'm very sorry.
+*/
+	
 	vector<string> cl;
 	string ci;
 	char ch;
